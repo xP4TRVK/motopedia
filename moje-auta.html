@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MotoPedia</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav id="main-nav">
+        <div class="nav-logo">
+            <a href="/"><img src="aalogo_motopedia.png" alt="MotoPedia Logo"></a>
+        </div>
+
+        <ul class="nav-links">
+            <li><a href="index.html">STRONA GŁÓWNA</a></li>
+            <li><a href="kolekcja.html">KOLEKCJA</a></li>
+            <li><a href="o-nas.html">O NAS</a></li>
+        </ul>
+
+        <div class="nav-actions" id="nav-actions">
+            <div class="nav-notifications hidden" id="notif-trigger">
+                <svg class="notif-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                </svg>
+            <div class="notif-dropdown hidden" id="notif-dropdown"></div>
+            </div>
+            <button onclick="window.location.href='logowanie.html'" class="btn-primary">ZALOGUJ SIĘ</button>
+        </div>
+        
+        <button id="hamburger-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </nav>
+
+    <div class="section-divider"></div>
+
+    <main class="my-cars-page">
+        
+        <h1 class="page-title">Moje pojazdy</h1>
+
+        <div class="big-tabs-container">
+            <button class="big-tab active" onclick="zmienZakladkeAut('opublikowane')">
+                OPUBLIKOWANE
+                <span class="tab-count" id="count-published">0</span>
+            </button>
+            <button class="big-tab" onclick="zmienZakladkeAut('zgloszenia')">
+                ZGŁOSZENIA
+                <span class="tab-count" id="count-submissions">0</span>
+            </button>
+        </div>
+
+        <div id="view-opublikowane" class="cars-view-content active">
+            <div id="list-published" class="my-cars-grid">
+                </div>
+        </div>
+
+        <div id="view-zgloszenia" class="cars-view-content">
+            <div class="info-banner">
+                Tutaj znajdują się pojazdy oczekujące na weryfikację oraz te, które wymagały poprawek.
+            </div>
+            <div id="list-submissions" class="my-cars-grid">
+                </div>
+        </div>
+
+    </main>
+
+    <div id="delete-my-car-modal" class="custom-modal-overlay">
+        <div class="custom-modal-window confirmation-modal-content">
+            <h3 class="confirmation-title">Usuwanie zgłoszenia</h3>
+            <p class="confirmation-text">Czy na pewno chcesz usunąć ten pojazd?<br>Zostanie on trwale usunięty z bazy danych.</p>
+            
+            <div class="confirmation-actions">
+                <button onclick="potwierdzUsuniecieMojegoAuta()" class="btn-danger">USUŃ</button>
+                
+                <button onclick="zamknijModalMojegoAuta()" class="btn-secondary">ANULUJ</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="section-divider footer-line"></div>
+            <p>&copy; 2026 MotoPedia - Twoje źródło wiedzy o autach.</p>
+            <p>Strona ma charakter wyłącznie edukacyjny w ramach projektu inżynierskiego. Wykorzystane materiały graficzne należą do ich właścicieli i zostały użyte na mocy prawa cytatu.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="moje-auta.js"></script>
+</body>
+</html>

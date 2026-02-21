@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MotoPedia</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav id="main-nav">
+        <div class="nav-logo">
+            <a href="/"><img src="aalogo_motopedia.png" alt="MotoPedia Logo"></a>
+        </div>
+
+        <ul class="nav-links">
+            <li><a href="index.html">STRONA GŁÓWNA</a></li>
+            <li><a href="kolekcja.html">KOLEKCJA</a></li>
+            <li><a href="o-nas.html">O NAS</a></li>
+        </ul>
+
+        
+
+        <div class="nav-actions" id="nav-actions">
+            <div class="nav-notifications hidden" id="notif-trigger">
+                <svg class="notif-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                </svg>
+            <div class="notif-dropdown hidden" id="notif-dropdown"></div>
+            </div>
+            <button onclick="window.location.href='logowanie.html'" class="btn-primary">ZALOGUJ SIĘ</button>
+        </div>
+        
+        <button id="hamburger-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </nav>
+
+    <div class="section-divider"></div>
+
+    <main>
+        <section id="search-section">
+            <div class="search-bar-container">
+                <form action="kolekcja" method="GET" class="search-form">
+                    <input type="text" id="searchInput" name="search" placeholder="Czego szukasz? (np. Porsche, BMW...)" autocomplete="off">
+                    <button type="submit" class="btn-search-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <section id="hero-section">
+            <div class="content-wrapper">
+                <article class="hero-text">
+                    <h1>ODKRYJ AUTO <br><span class="highlight">SWOICH MARZEŃ</span></h1>
+                    <p class="hero-description">
+                        Poznaj najdoskonalsze samochody, od nowoczesnych cudów techniki po ponadczasowe klasyki. 
+                        Doświadcz motoryzacji w najlepszym wydaniu.
+                    </p>
+                    
+                    <div class="hero-buttons">
+                        <a href="kolekcja.html" class="btn-primary">EKSPLORUJ TERAZ</a>
+                        <button class="btn-sub" id="open-info-modal">DOWIEDZ SIĘ WIĘCEJ</button>
+                    </div>
+                </article>
+
+                <aside id="lista-pojazdow-hero"></aside>
+            </div>
+        </section>
+
+        <div id="toast-box" class="toast"></div>
+
+        <section class="features-section">
+            <div class="features-wrapper">
+                <div class="feature-item">
+                    <div class="feature-icon">📚</div>
+                    <h3>Ogromna Baza</h3>
+                    <p>Stale rosnący katalog legendarnych maszyn, od klasyków po nowoczesne superauta.</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">⚙️</div>
+                    <h3>Szczegółowe Dane</h3>
+                    <p>Precyzyjne informacje o silnikach, mocy i historii każdego modelu prosto z bazy danych.</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">💬</div>
+                    <h3>Społeczność</h3>
+                    <p>Miejsce tworzone przez pasjonatów dla pasjonatów - oceniaj i komentuj swoje ulubione modele.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="info-modal" class="custom-modal-overlay">
+        <div class="custom-modal-window glass-effect">
+            <div class="custom-modal-body">
+                <h2 class="modal-main-title">Witaj w MotoPedii!</h2>
+                
+                <p class="modal-text-lead">
+                  MotoPedia to Twoja cyfrowa baza pojazdów, począwszy od klasyków, kończąc na nowoczesnych supersamochodach. Oto co możesz tu zrobić:
+                </p>
+                
+                <ul class="modal-features-list">
+                    <li>✅ Przeglądać techniczne detale legendarnych aut</li>
+                    <li>✅ Sprawdzać parametry silników i osiągi</li>
+                    <li>✅ Podziwiać zdjęcia w jakości premium</li>
+                </ul>
+                
+                <div class="modal-action-area">
+                    <button type="button" class="btn-main ok-button" id="close-info-modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="section-divider footer-line"></div>
+            <p>&copy; 2026 MotoPedia - Twoje źródło wiedzy o autach.</p>
+            <p>Strona ma charakter wyłącznie edukacyjny w ramach projektu inżynierskiego. Wykorzystane materiały graficzne należą do ich właścicieli i zostały użyte na mocy prawa cytatu.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="index.js"></script>
+</body>
+</html>

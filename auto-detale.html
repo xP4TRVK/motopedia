@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Szczegóły | MotoPedia</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav id="main-nav">
+        <div class="nav-logo">
+            <a href="/"><img src="aalogo_motopedia.png" alt="MotoPedia Logo"></a>
+        </div>
+
+        <ul class="nav-links">
+            <li><a href="index.html">STRONA GŁÓWNA</a></li>
+            <li><a href="kolekcja.html">KOLEKCJA</a></li>
+            <li><a href="o-nas.html">O NAS</a></li>
+        </ul>
+
+        <div class="nav-actions" id="nav-actions">
+            <div class="nav-notifications hidden" id="notif-trigger">
+                <svg class="notif-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                </svg>
+            <div class="notif-dropdown hidden" id="notif-dropdown"></div>
+            </div>
+            <button onclick="window.location.href='logowanie.html'" class="btn-primary">ZALOGUJ SIĘ</button>
+        </div>
+        
+        <button id="hamburger-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </nav>
+
+    <div class="section-divider"></div>
+
+    <main class="details-page-wrapper">
+        
+        <div class="details-top-section">
+            
+            <div class="details-gallery">
+                <div class="main-photo-container" onclick="otworzLightbox()">
+                    <img id="main-photo" src="" alt="Zdjęcie pojazdu" class="main-img">
+                    
+                    <button class="nav-arrow prev" onclick="event.stopPropagation(); zmienZdjecie(-1)">❮</button>
+                    <button class="nav-arrow next" onclick="event.stopPropagation(); zmienZdjecie(1)">❯</button>
+
+                    <div class="zoom-indicator">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+                    </div>
+                </div>
+                <div id="thumbnails-container" class="thumbnails-row"></div>
+            </div>
+
+            <div class="details-info-box">
+                <div class="details-header">
+                    <h1 id="auto-nazwa">Ładowanie...</h1>
+                    <p id="auto-rok" class="car-year">-</p>
+                </div>
+
+                <div class="specs-list">
+                    <div class="spec-row">
+                        <span class="spec-label">Silnik:</span>
+                        <span id="auto-silnik" class=\"spec-value\">-</span>
+                    </div>
+                    <div class="spec-row">
+                        <span class="spec-label">Moc:</span>
+                        <span id="auto-moc" class="spec-value">-</span>
+                    </div>
+                </div>
+
+                <div id="user-actions-container" class="user-buttons-area"></div>
+
+                <div id="admin-actions-container" class="admin-buttons-area"></div>
+
+            </div>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <div class="details-content-section">
+            <h2>O samochodzie</h2>
+            <div id="auto-opis" class="car-description-text">
+                </div>
+            
+            <button class="btn-back-large" onclick="window.history.back()">
+                ← WRÓĆ DO KOLEKCJI
+            </button>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <div class="comments-section">
+                <h3 class="section-title">DYSKUSJA</h3>
+            
+            <div id="add-comment-box" class="comment-form-box">
+                <textarea id="comment-text" placeholder="Napisz co myślisz o tym aucie..." rows="3"></textarea>
+            <div class="form-footer">
+                    <button class="btn-primary" onclick="dodajKomentarz()">OPUBLIKUJ</button>
+            </div>
+            </div>
+
+            <div id="login-to-comment-msg" class="login-msg">
+                <p>Musisz się <a href="logowanie.html">zalogować</a>, aby dodać komentarz.</p>
+            </div>
+
+            <div id="comments-list" class="comments-list"></div>
+        </div>
+
+        <div class="section-divider"></div>
+
+    <section class="similar-cars-section">
+    <h3 class="section-title">MOŻE CIĘ ZAINTERESOWAĆ</h3>
+    <div id="podobne-auta-grid" class="collection-grid">
+        </div>
+    </section>
+
+    </main>
+
+    <div id="toast-box" class="toast"></div>
+    
+    <div id="lightbox-modal" class="lightbox-overlay">
+        <span class="close-lightbox" onclick="zamknijLightbox()">&times;</span>
+        
+        <button class="lightbox-nav left" onclick="zmienZdjecie( -1)">❮</button>
+        <img class="lightbox-content" id="lightbox-img">
+        <button class="lightbox-nav right" onclick="zmienZdjecie(1)">❯</button>
+        
+        <div class="lightbox-counter" id="lightbox-counter">1 / 5</div>
+    </div>
+
+    <div id="delete-comment-modal" class="custom-modal-overlay">
+        <div class="custom-modal-window confirmation-modal-content">
+            <h3 class="confirmation-title">Usuwanie komentarza</h3>
+            <p class="confirmation-text">Czy na pewno chcesz usunąć ten komentarz?<br>Tej operacji nie można cofnąć.</p>
+            
+            <div class="confirmation-actions">
+                <button onclick="potwierdzUsuniecieKomentarza()" class="btn-danger">USUŃ</button>
+                <button onclick="document.getElementById('login-required-modal').classList.remove('modal-active')" class="btn-secondary">ANULUJ</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="login-required-modal" class="custom-modal-overlay">
+    <div class="custom-modal-window confirmation-modal-content">
+        <h3 class="login-info-title">WYMAGANE LOGOWANIE</h3>
+        
+        <p class="confirmation-text">
+            Aby dodać pojazd do ulubionych, musisz posiadać konto.<br>
+            Czy chcesz się zalogować teraz?
+        </p>
+        
+        <div class="confirmation-actions">
+            <button onclick="window.location.href='logowanie.html'" class="btn-primary">ZALOGUJ SIĘ</button>
+            <button onclick="document.getElementById('login-required-modal').classList.remove('modal-active')" class="btn-secondary">ANULUJ</button>
+        </div>
+    </div>
+    </div>
+
+    <div id="delete-vehicle-modal" class="custom-modal-overlay">
+        <div class="custom-modal-window confirmation-modal-content">
+            <h3 class="confirmation-title">Usuwanie pojazdu</h3>
+            <p class="confirmation-text">ADMINISTRATORZE:<br>Czy na pewno chcesz usunąć ten pojazd z bazy danych?</p>
+            
+            <div class="confirmation-actions">
+                <button onclick="potwierdzUsunieciePojazduAdmin()" class="btn-danger">USUŃ</button>
+                <button onclick="zamknijModalPojazduAdmin()" class="btn-secondary">ANULUJ</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="section-divider footer-line"></div>
+            <p>&copy; 2026 MotoPedia - Twoje źródło wiedzy o autach.</p>
+            <p>Strona ma charakter wyłącznie edukacyjny w ramach projektu inżynierskiego. Wykorzystane materiały graficzne należą do ich właścicieli i zostały użyte na mocy prawa cytatu.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="detale.js"></script>
+</body>
+</html>

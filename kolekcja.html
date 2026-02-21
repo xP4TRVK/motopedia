@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kolekcja | MotoPedia</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav id="main-nav">
+        <div class="nav-logo">
+            <a href="/"><img src="aalogo_motopedia.png" alt="MotoPedia Logo"></a>
+        </div>
+
+        <ul class="nav-links">
+            <li><a href="index.html">STRONA GŁÓWNA</a></li>
+            <li><a href="kolekcja.html">KOLEKCJA</a></li>
+            <li><a href="o-nas.html">O NAS</a></li>
+        </ul>
+
+        <div class="nav-actions" id="nav-actions">
+            <div class="nav-notifications hidden" id="notif-trigger">
+                <svg class="notif-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                </svg>
+            <div class="notif-dropdown hidden" id="notif-dropdown"></div>
+            </div>
+            <button onclick="window.location.href='logowanie.html'" class="btn-primary">ZALOGUJ SIĘ</button>
+        </div>
+        
+        <button id="hamburger-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </nav>
+
+    <div class="section-divider"></div>
+
+    <main>
+        <div class="collection-container">
+            <h1 class="container-title-glow">PEŁNA KOLEKCJA SAMOCHODÓW</h1>
+            
+            <div class="collection-tools-wrapper">
+            <div class="tools-container">
+        
+            <div class="search-box-custom">
+                <input type="text" id="searchInput" placeholder="Czego szukasz? (np. Porsche...)" autocomplete="off">
+                <button id="searchBtn" class="btn-search-trigger">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                </button>
+            </div>
+
+                <button id="filterToggleBtn" class="btn-filter-toggle">FILTRY</button>
+
+            </div>
+
+    <div id="filterPanel" class="filter-panel">
+        <div class="filter-grid-layout">
+        
+            <div class="filter-column">
+            <label for="sortFilter">Kolejność wyświetlania</label>
+                <select id="sortFilter" class="filter-select">
+                    <option value="newest">Najnowsze</option>
+                    <option value="oldest">Najstarsze</option>
+                </select>
+            </div>
+
+            <div class="filter-column">
+                <label for="powerFilter">Moc silnika (KM)</label>
+                <select id="powerFilter" class="filter-select">
+                    <option value="all">Wszystkie moce</option>
+                    <option value="0-300">Poniżej 300 KM</option>
+                    <option value="300">Powyżej 300 KM</option>
+                    <option value="500">Powyżej 500 KM</option>
+                    <option value="700">Powyżej 700 KM</option>
+                </select>
+            </div>
+
+            <div class="filter-column">
+                <label for="yearFilter">Rok produkcji</label>
+                <select id="yearFilter" class="filter-select">
+                    <option value="all">Wszystkie lata</option>
+                    <option value="2020_up">Nowoczesne (2020+)</option>
+                    <option value="2010-2019">2010-2019</option>
+                    <option value="2000-2009">2000-2009</option>
+                    <option value="2000_down">Klasyki (przed 2000)</option>
+                </select>
+            </div>
+
+        </div>
+
+        <div class="filter-actions">
+            <button id="resetFiltersBtn" class="btn-reset-filters">
+            ↺ Resetuj filtry
+            </button>
+        </div>
+    </div>
+            </div>
+
+            <div id="lista-pojazdow-pelna" class="collection-grid"></div>
+        </div>
+
+        
+    </main>
+
+    <div id="toast-box" class="toast"></div>
+    
+
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="section-divider footer-line"></div>
+            <p>&copy; 2026 MotoPedia - Twoje źródło wiedzy o autach.</p>
+            <p>Strona ma charakter wyłącznie edukacyjny w ramach projektu inżynierskiego. Wykorzystane materiały graficzne należą do ich właścicieli i zostały użyte na mocy prawa cytatu.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="kolekcja.js"></script>
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weryfikacja | MotoPedia</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav id="main-nav">
+        <div class="nav-logo">
+            <a href="/"><img src="aalogo_motopedia.png" alt="MotoPedia Logo"></a>
+        </div>
+
+        <ul class="nav-links">
+            <li><a href="index.html">STRONA GŁÓWNA</a></li>
+            <li><a href="kolekcja.html">KOLEKCJA</a></li>
+            <li><a href="o-nas.html">O NAS</a></li>
+        </ul>
+
+        <div class="nav-actions" id="nav-actions">
+            <div class="nav-notifications hidden" id="notif-trigger">
+                <svg class="notif-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                </svg>
+            <div class="notif-dropdown hidden" id="notif-dropdown"></div>
+            </div>
+            <button onclick="window.location.href='logowanie.html'" class="btn-primary">ZALOGUJ SIĘ</button>
+        </div>
+        
+        <button id="hamburger-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </nav>
+
+    <div class="section-divider"></div>
+
+    <main class="verify-page">
+        <header class="stats-header">
+            <h1>Statystyki storny</h1>
+        </header>
+
+        <section class="admin-stats-container">
+            <div class="stat-card">
+            <div class="stat-icon">👤</div>
+            <div class="stat-info">
+                <span class="stat-value" id="stats-users">-</span>
+                <span class="stat-label">Użytkowników</span>
+            </div>
+            </div>
+            <div class="stat-card">
+            <div class="stat-icon">🚗</div>
+            <div class="stat-info">
+                <span class="stat-value" id="stats-cars">-</span>
+                <span class="stat-label">Aut w bazie</span>
+            </div>
+            </div>
+            <div class="stat-card urgent">
+            <div class="stat-icon">⏳</div>
+            <div class="stat-info">
+                <span class="stat-value" id="stats-pending">-</span>
+                <span class="stat-label">Oczekuje</span>
+            </div>
+            </div>
+        </section>
+
+        <section class="verify-section">
+            <h1>Weryfikacja pojazdów</h1>
+        </section>
+
+        <section id="lista-weryfikacji" class="verify-grid">
+            <p class="empty-msg">Brak aut oczekujących na weryfikację.</p>
+        </section>
+    </main>
+
+
+    <div id="reject-modal" class="custom-modal-overlay">
+        <div class="custom-modal-window confirmation-modal-content">
+            <h3 class="confirmation-title">Odrzucanie zgłoszenia</h3>
+            <p class="confirmation-text">Czy na pewno chcesz ODRZUCIĆ to auto?<br>Trafi ono z powrotem do użytkownika w celu naniesienia poprawek.</p>
+            
+            <div class="confirmation-actions">
+                <button onclick="potwierdzOdrzucenie()" class="btn-danger">ODRZUĆ</button>
+                <button onclick="zamknijModalOdrzucania()" class="btn-secondary">ANULUJ</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast-box" class="toast"></div>
+
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="section-divider footer-line"></div>
+            <p>&copy; 2026 MotoPedia - Twoje źródło wiedzy o autach.</p>
+            <p>Strona ma charakter wyłącznie edukacyjny w ramach projektu inżynierskiego. Wykorzystane materiały graficzne należą do ich właścicieli i zostały użyte na mocy prawa cytatu.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="weryfikacja.js"></script>
+</body>
+</html>

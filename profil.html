@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil użytkownika | MotoPedia</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav id="main-nav">
+        <div class="nav-logo">
+            <a href="/"><img src="aalogo_motopedia.png" alt="MotoPedia Logo"></a>
+        </div>
+
+        <ul class="nav-links">
+            <li><a href="index.html">STRONA GŁÓWNA</a></li>
+            <li><a href="kolekcja.html">KOLEKCJA</a></li>
+            <li><a href="o-nas.html">O NAS</a></li>
+        </ul>
+
+        <div class="nav-actions" id="nav-actions">
+            <div class="nav-notifications hidden" id="notif-trigger">
+                <svg class="notif-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                </svg>
+            <div class="notif-dropdown hidden" id="notif-dropdown"></div>
+            </div>
+            <button onclick="window.location.href='logowanie.html'" class="btn-primary">ZALOGUJ SIĘ</button>
+        </div>
+        
+        <button id="hamburger-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </nav>
+
+    <div class="section-divider"></div>
+
+    <main class="profile-section">
+        <div class="profile-card">
+            
+            <div class="profile-sidebar">
+                
+                <div class="avatar-wrapper" onclick="document.getElementById('avatar-upload').click()">
+                    <div class="avatar-circle">
+                        <svg id="default-avatar-icon" xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                    </div>
+                    
+                    <div class="avatar-overlay">
+                        <span>Zmień</span>
+                    </div>
+                </div>
+
+                <input type="file" id="avatar-upload" accept="image/png, image/jpeg, image/jpg" style="display: none;">
+
+                <h3 id="profile-login-display">Ładowanie...</h3>
+                <p id="profile-role-display" class="role-text">Wczytywanie...</p> 
+                <p class="profile-stats">Suma polubień: <b id="profile-total-likes">0</b> ❤️</p>
+            </div>
+
+            <div class="profile-content">
+                <h2>Ustawienia Konta</h2>
+                
+                <form id="profile-form">
+                    
+                    <div class="profile-form-row">
+                        <div class="profile-form-group">
+                            <label>Login (Poufne)</label>
+                            <input type="text" id="edit-login" disabled value="..." class="input-disabled">
+                            <span class="hint">Login służy tylko do logowania.</span>
+                        </div>
+
+                        <div class="profile-form-group">
+                            <label>Nazwa Wyświetlana</label>
+                            <input type="text" id="edit-nazwa" required>
+                            <span class="hint">Tę nazwę widzą inni użytkownicy.</span>
+                        </div>
+                    </div>
+
+                    <div class="profile-form-group">
+                        <label>Adres E-mail</label>
+                        <input type="email" id="edit-email" required>
+                    </div>
+
+                    <div class="profile-form-group narrow-select-container">
+                        <label>Płeć</label>
+                        <select id="profile-edit-plec" class="custom-profile-select">
+                            <option value="mezczyzna">Mężczyzna</option>
+                            <option value="kobieta">Kobieta</option>
+                        </select>
+                    </div>
+
+                    <h4>Zmiana hasła</h4>
+                    
+                    <div class="profile-form-group">
+                        <label>Obecne hasło</label>
+                        <input type="password" id="old-password" placeholder="Wpisz obecne hasło">
+                    </div>
+
+                    <div class="profile-form-row">
+                        <div class="profile-form-group">
+                            <label>Nowe hasło</label>
+                            <input type="password" id="new-password" placeholder="Wpisz nowe hasło">
+                        </div>
+                        <div class="profile-form-group">
+                            <label>Powtórz nowe hasło</label>
+                            <input type="password" id="confirm-password" placeholder="Powtórz nowe hasło">
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn-primary">Zapisz zmiany</button>
+                        <button type="button" onclick="window.location.href='index.html'" class="btn-secondary">Anuluj</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <div id="crop-modal" class="crop-modal-overlay">
+        <div class="crop-modal-window">
+            <h3>Dopasuj zdjęcie</h3>
+            
+            <div class="crop-image-container">
+                <img id="image-to-crop" alt="Do przycięcia">
+            </div>
+
+            <div class="crop-controls">
+                <span class="zoom-icon">−</span>
+                <input type="range" id="zoom-slider" min="0.1" max="3.0" step="0.1" value="1">
+                <span class="zoom-icon">+</span>
+            </div>
+
+            <div class="crop-actions">
+                <button type="button" id="crop-confirm-btn" class="btn-primary">Zatwierdź</button>
+                <button type="button" id="cancel-crop-btn" class="btn-secondary">Anuluj</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast-box" class="toast"></div>
+
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="section-divider footer-line"></div>
+            <p>&copy; 2026 MotoPedia - Twoje źródło wiedzy o autach.</p>
+            <p>Strona ma charakter wyłącznie edukacyjny w ramach projektu inżynierskiego. Wykorzystane materiały graficzne należą do ich właścicieli i zostały użyte na mocy prawa cytatu.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
+    <script src="script.js"></script>
+    <script src="profil.js"></script>
+</body>
+</html>

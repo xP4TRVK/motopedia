@@ -1,0 +1,2768 @@
+/* ==========================================================================
+   1. ZMIENNE I RESET (ROOT VARIABLES)
+   ========================================================================== */
+:root {
+    /* Kolory główne */
+    --color-primary: #3b82f6;      
+    --color-primary-hover: #2563eb;
+    --color-secondary: #109edf;    
+    --color-third: #0051ff;
+    --color-danger: #dc3545;       
+    --color-success: #28a745;     
+    --color-gold: #f1c40f;
+    
+    /* Tła i Bordery */
+    --bg-dark: #1a1a1a;
+    --bg-glass: rgba(20, 20, 20, 0.75);
+    --border-color: #333;
+    
+    /* Tekst */
+    --text-main: #ffffff;
+    --text-muted: #cccccc;
+}
+
+html {
+    height: 100%;
+    box-sizing: border-box;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    /* Twój oryginalny gradient */
+    background: linear-gradient(0deg, rgba(3, 2, 2, 1) 0%, rgba(34, 31, 173, 1) 100%);
+    background-attachment: fixed;
+    color: var(--text-main);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1; /* Pycha stopkę na dół */
+    width: 100%;
+}
+
+/* Wymuszenie dziedziczenia czcionki w formularzach */
+input, textarea, button, select {
+    font-family: inherit;
+}
+
+/* ==========================================================================
+   2. KOMPONENTY GLOBALNE (PRZYCISKI, KARTY, TOAST, MODAL)
+   ========================================================================== */
+
+/* ==========================================================================
+   BUTTONY - SYSTEM UNIWERSALNY
+   ========================================================================== */
+
+/* 1. Wspólna baza dla wszystkich przycisków (Styl, czcionka, kształt) */
+.btn-primary, .btn-secondary, .btn-danger {
+    display: inline-block;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    text-decoration: none;
+    line-height: 1.2;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+}
+
+/* 2. .btn-primary - Główne akcje (Niebieski) */
+.btn-primary {
+    background-color: var(--color-primary);
+    color: white;
+}
+.btn-primary:hover {
+    background-color: var(--color-primary-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(37, 99, 235, 0.4);
+}
+
+/* 3. .btn-secondary - Anulowanie/Powrót (Szary/Przezroczysty) */
+.btn-secondary {
+    background-color: transparent;
+    border: 2px solid #555;
+    color: #ccc;
+}
+.btn-secondary:hover {
+    background-color: #333;
+    color: white;
+    border-color: #777;
+}
+
+.ok-button {
+    background-color: var(--color-primary);
+    color: white;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.ok-button:hover {
+    background-color: var(--color-primary-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.btn-sub{
+    background-color: #dddddd;
+    color: black;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 6px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.btn-sub:hover{
+    background-color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.btn-danger, .btn-admin-delete, .btn-delete-photo {
+    background-color: var(--color-danger);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.2s;
+}
+.btn-danger:hover, .btn-admin-delete:hover {
+    background-color: #b02a37;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(122, 17, 17, 0.4);
+}
+
+.btn-approve {
+    background-color: var(--color-success);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.2s;
+    display: inline-block;
+    border: none;
+    font-size: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    text-align: center;
+    text-decoration: none;
+    line-height: 1.2;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+}
+.btn-approve:hover { 
+    background-color: #218838;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(22, 180, 17, 0.267);
+}
+
+/* Przycisk admina w profilu */
+.btn-add-car {
+    background-color: #2176e6;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 14px;
+    cursor: pointer;
+    transition: 0.3s;
+    text-decoration: none;
+    margin-right: 15px;
+}
+.btn-add-car:hover { 
+    background-color: #4e4cd8; 
+}
+
+/* --- SEPARATOR (LINIA) --- */
+.section-divider {
+    width: 100%;                     
+    margin: 0 auto;               
+    border: none;                 
+    height: 1px;                   
+    background: linear-gradient(to right, transparent, #333, transparent);
+    opacity: 0.7;
+}
+
+/* --- TOAST (POWIADOMIENIA) --- */
+.toast {
+    min-width: 250px;
+    background-color: #222;
+    color: #fff;
+    text-align: center;
+    border-radius: 8px;
+    padding: 16px;
+    position: fixed;
+    left: 50%;
+    bottom: 10%;
+    transform: translateX(-50%);
+    z-index: 999999;
+    border: 1px solid var(--color-primary);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s, bottom 0.3s;
+}
+
+.toast.show {
+    visibility: visible;
+    opacity: 1;
+    bottom: 15%;
+}
+
+/* --- MODAL (WSPÓLNY STYL DLA INFO I EDYCJI) --- */
+.custom-modal-overlay, .modal-overlay, .crop-modal-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex; /* Flexbox centruje modal */
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    backdrop-filter: blur(5px);
+}
+
+.custom-modal-window, .modal-content, .crop-modal-window {
+    background: var(--bg-glass);
+    border: 1px solid var(--color-primary);
+    border-radius: 15px;
+    padding: 40px;
+    max-width: 600px;
+    width: 90%;
+    color: white;
+    box-shadow: 0 0 30px rgba(59, 130, 246, 0.2);
+    position: relative;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+/* Specyficzne dla modala Info na głównej */
+.custom-modal-body { 
+    text-align: center; 
+}
+.modal-main-title { 
+    font-size: 2rem; 
+    margin-bottom: 20px; 
+}
+
+.modal-features-list { 
+    list-style: none; 
+    padding: 0; 
+    text-align: left; 
+    display: inline-block; 
+}
+
+.modal-features-list li { 
+    margin-bottom: 10px; 
+    font-size: 1.1rem; 
+}
+
+/* Klasy pomocnicze do sterowania z poziomu JS */
+.hidden {
+    display: none !important;
+}
+
+.modal-active {
+    display: flex !important;
+}
+
+.text-error {
+    color: var(--color-danger);
+    text-align: center;
+    width: 100%;
+}
+
+.text-muted-center {
+    color: #888;
+    text-align: center;
+    width: 100%;
+}
+
+/* ==========================================================================
+   3. NAWIGACJA (NAVBAR)
+   ========================================================================== */
+#main-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 30px;
+    height: 70px;
+    background: transparent;
+}
+
+.nav-logo img {
+    max-height: 60px;
+    width: auto;
+    display: block;
+    margin-top: 5px;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 30px;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-main);
+    font-weight: 600;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover {
+    color: var(--color-primary);
+}
+
+.nav-actions {
+    display: flex;
+    align-items: center;
+}
+
+.nav-admin-link {
+    color: #c8ff00 !important;
+}
+
+/* Profil użytkownika w nawigacji */
+.user-profile-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    padding: 5px 10px;
+}
+
+.user-avatar {
+    width: 35px;
+    height: 35px;
+    background-color: var(--color-primary);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.user-name { 
+    font-weight: 600; 
+    font-size: 0.9rem; 
+    margin-right: 5px;
+}
+
+.user-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #1a1a1a;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    width: 180px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    z-index: 1000;
+}
+
+.user-profile-container:hover .user-dropdown {
+    display: block;
+}
+
+.user-dropdown a, .user-dropdown div {
+    display: block;
+    padding: 12px 15px;
+    color: #ccc;
+    text-decoration: none;
+    transition: 0.2s;
+    font-size: 0.9rem;
+}
+
+.user-dropdown a:hover, .user-dropdown div:hover {
+    background-color: var(--color-primary);
+    color: white;
+}
+
+.nav-notifications {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    margin-right: 10px; /* Odstęp od przycisków */
+}
+
+.notif-icon {
+    width: 22px; /* Rozmiar dopasowany do lupy */
+    height: 22px;
+}
+
+/* Stan, gdy są nowe powiadomienia */
+.nav-notifications.has-new .notif-icon {
+    color: var(--color-gold);
+    filter: drop-shadow(0 0 5px rgba(241, 196, 15, 0.5));
+}
+
+.nav-notifications:hover .notif-icon {
+    color: var(--text-main);
+}
+
+.notif-dropdown {
+    position: absolute;
+    top: 60px;
+    width: 300px;
+    min-height: 150px;
+    background: var(--bg-glass);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    z-index: 1000;
+    padding: 10px 0;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+/* --- Stylizacja listy powiadomień --- */
+
+/* Pusty stan */
+.notif-empty {
+    padding: 50px;
+    text-align: center;
+    color: #999;
+    font-size: 0.9rem;
+    font-style: italic;
+}
+
+/* Pojedyncze powiadomienie */
+.notif-item {
+    position: relative; /* Ważne dla pozycjonowania X */
+    padding: 12px 35px 12px 15px; /* Prawy padding większy, żeby tekst nie wszedł na X */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    color: #eee;
+    font-size: 0.85rem;
+    display: flex;
+    flex-direction: column;
+    transition: background 0.2s;
+}
+
+.notif-item:last-child {
+    border-bottom: none;
+}
+
+.notif-item:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* Nieprzeczytane (lekkie podświetlenie + złoty pasek) */
+.notif-item.unread {
+    background: rgba(241, 196, 15, 0.08);
+    border-left: 3px solid var(--color-gold);
+}
+
+.notif-item small {
+    color: #777;
+    font-size: 0.7rem;
+    margin-top: 4px;
+}
+
+/* Przycisk usuwania "X" */
+.notif-delete-btn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: transparent;
+    border: none;
+    color: #555;
+    font-size: 1.2rem;
+    cursor: pointer;
+    line-height: 1;
+    padding: 2px 6px;
+    transition: color 0.2s;
+}
+
+.notif-delete-btn:hover {
+    color: var(--color-danger); /* Czerwony po najechaniu */
+}
+
+/* --- ANIMACJA DZWONKA --- */
+
+/* Definicja ruchu (kołysanie) */
+@keyframes bell-ring {
+    0% { transform: rotate(0); }
+    10% { transform: rotate(15deg); }
+    20% { transform: rotate(-10deg); }
+    30% { transform: rotate(10deg); }
+    40% { transform: rotate(-10deg); }
+    50% { transform: rotate(5deg); }
+    60% { transform: rotate(-5deg); }
+    70% { transform: rotate(0); }
+    100% { transform: rotate(0); }
+}
+
+/* Styl aktywnego dzwonka (gdy są powiadomienia) */
+.nav-notifications.has-new .notif-icon {
+    color: var(--color-gold);
+    /* Animacja trwa 2s i powtarza się w nieskończoność */
+    animation: bell-ring 3s infinite ease-in-out;
+    /* Mocna poświata */
+    filter: drop-shadow(0 0 8px rgba(241, 196, 15, 0.9));
+}
+
+/* Po kliknięciu i otwarciu dropdownu zatrzymujemy animację, 
+   ale zostawiamy kolor, dopóki nie zniknie klasa has-new w JS */
+.nav-notifications.has-new.open .notif-icon {
+    animation: none;
+}
+
+/* Hamburger (na razie ukryty, do RWD) */
+#hamburger-icon { display: none; }
+
+/* ==========================================================================
+   4. FORMULARZE (INPUTY I KONTENERY)
+   ========================================================================== */
+input[type="text"], input[type="password"], input[type="number"], input[type="email"], textarea, select {
+    width: 100%;
+    padding: 12px;
+    background: #2a2a2a;
+    border: 1px solid var(--border-color);
+    color: #fff;
+    border-radius: 6px;
+    margin-bottom: 15px;
+}
+
+input:focus, textarea:focus, select:focus {
+    outline: none;
+    border-color: var(--color-primary);
+}
+
+label {
+    display: block;
+    color: #ccc;
+    margin-bottom: 8px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+}
+
+/* Kontenery formularzy (Wspólne dla Logowania, Edycji, Dodawania) */
+.form-container, .add-car-container, .edit-car-container, .correction-car-container {
+    background-color: var(--bg-glass);
+    padding: 40px;
+    border-radius: 15px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+    width: 100%;
+    max-width: 1000px;
+    margin: 20px auto;
+}
+
+/* ==========================================================================
+   5. STRONA GŁÓWNA (INDEX.HTML)
+   ========================================================================== */
+#hero-section {
+    padding: 80px 20px;
+}
+
+.content-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1300px;
+    margin: 0 auto;
+    gap: 40px;
+}
+
+.hero-text { width: 45%; }
+
+.hero-text h1 {
+    font-size: 3.5rem;
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 20px;
+}
+
+.highlight {
+    color: var(--color-primary);
+    text-shadow: 0 0 15px rgba(59, 130, 246, 0.6);
+}
+
+.hero-description {
+    font-size: 1.1rem;
+    color: #ccc;
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+.hero-buttons { display: flex; gap: 15px; }
+
+#lista-pojazdow-hero {
+    width: 50%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-content: center;
+    gap: 20px;
+    
+}
+
+/* Sekcja szukania */
+.search-container {
+    width: 70%;
+    margin: 40px auto;
+    display: flex;
+}
+
+#car-search {
+    flex-grow: 1;
+    border-radius: 4px 0 0 4px;
+    margin-bottom: 0;
+    background: #1a1a1a;
+}
+
+.search-submit-button {
+    background: black;
+    border: 1px solid #333;
+    padding: 0 25px;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+.search-submit-button img { height: 24px; filter: invert(1); }
+
+/* Features */
+.features-section { padding: 60px 0; }
+.features-wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+}
+.feature-item { 
+    flex: 1; 
+    padding: 0 20px; 
+}
+
+.feature-icon { 
+    font-size: 3rem; 
+    margin-bottom: 15px; 
+    display: block;
+}
+
+.feature-item h3 { 
+    color: var(--color-primary); 
+    margin-bottom: 10px;
+}
+
+.feature-item p { 
+    color: #aaa; 
+    line-height: 1.5; 
+}
+
+/* ==========================================================================
+   6. KOLEKCJA (KOLEKCJA.HTML) + KAFELKI AUT
+   ========================================================================== */
+.collection-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.container-title-glow {
+    font-size: 2.7rem;
+    font-weight: 800;
+    color: var(--color-secondary);
+    text-shadow: 0 0 15px rgba(84, 110, 223, 0.6);
+    margin-bottom: 20px;
+}
+
+.collection-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 30px;
+    width: 100%;
+}
+
+/* Wygląd Karty Auta (Miniaturka) */
+.card-mini {
+    background: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.3s, border-color 0.3s;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-mini:hover {
+    transform: translateY(-5px);
+    border-color: var(--color-primary);
+}
+
+.card-link { 
+    text-decoration: none; 
+    color: inherit; 
+    display: block; 
+    height: 100%; 
+}
+
+.card-mini-img-wrapper {
+    height: 180px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #161616;
+    overflow: hidden;
+    padding: 10px;
+}
+
+.card-mini-img-wrapper img {
+    max-width: 95%;
+    max-height: 95%;
+    object-fit: contain;
+    transition: transform 0.4s;
+}
+
+.card-mini-body {
+    padding: 15px;
+    text-align: center;
+    max-height: 210px;
+}
+
+.card-mini h3 { 
+    font-size: 1.2rem; 
+    color: #ddd; margin: 0; 
+    text-transform: uppercase; }
+.card-mini h4 { 
+    font-size: 1rem; 
+    color: #888; margin: 5px 0; 
+    text-transform: uppercase; }
+.card-mini h5 { 
+    font-size: 0.9rem; 
+    color: var(--color-primary); 
+    margin-top: 5px; }
+
+/* ================================================================================= */
+/* ========================== WYSZUKIWARKA KOLEKCJA ================================ */
+/* ================================================================================= */
+.search-bar-container {
+    width: 100%;
+    max-width: 1200px; /* Nie za szeroka */
+    margin: 20px auto 20px auto; /* Wyśrodkowana, odstęp od dołu */
+    position: relative;
+}
+
+.search-form {
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.05); /* Przezroczyste tło */
+    border: 1px solid #444;
+    border-radius: 50px; /* Zaokrąglona pigułka */
+    padding: 5px 20px;
+    transition: 0.3s border-color;
+}
+
+.search-form:hover,
+.search-form:focus-within {
+    border-color: #3b82f6; /* Niebieski kolor przy aktywności */
+    box-shadow: 0 0 15px rgba(59, 130, 246, 0.3);
+}
+
+.search-form input {
+    flex: 1; /* Zajmij całą resztę miejsca */
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 1rem;
+    padding: 10px;
+    outline: none;
+    margin: 0;
+}
+
+.btn-search-icon {
+    background: none;
+    border: none;
+    color: #888;
+    cursor: pointer;
+    transition: 0.3s color;
+    display: flex;
+    align-items: center;
+}
+
+.btn-search-icon:hover {
+    color: #3b82f6;
+    transform: scale(1.1);
+}
+
+/* ======================== PASEK NARZĘDZI (WYSZUKIWARKA + FILTRY) ======================== */
+
+.collection-tools-wrapper {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto 40px auto;
+    position: relative;
+    z-index: 10;
+}
+
+.tools-container {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    align-items: stretch;
+}
+
+/* --- WYSZUKIWARKA --- */
+.search-box-custom {
+    flex: 1; /* Zajmuje dostępne miejsce */
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid #444;
+    border-radius: 50px;
+    padding: 5px 20px;
+    transition: 0.3s border-color, 0.3s box-shadow;
+}
+
+.search-box-custom:hover{
+    border-color: #3b82f6; /* Niebieski kolor przy aktywności */
+    box-shadow: 0 0 15px rgba(59, 130, 246, 0.3);
+}
+
+.search-box-custom:focus-within {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 15px rgba(59, 130, 246, 0.3);
+}
+
+.search-box-custom input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: #fff;
+    padding: 10px;
+    font-size: 1rem;
+    outline: none;
+    margin: 0; /* Reset marginesów inputa */
+}
+
+.btn-search-trigger {
+    background: none;
+    border: none;
+    color: #888;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: 0.3s;
+    padding: 5px;
+}
+
+.btn-search-trigger:hover {
+    color: var(--color-primary);
+    transform: scale(1.1);
+}
+
+/* --- PRZYCISK FILTRÓW --- */
+.btn-filter-toggle {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid #444;
+    color: var(--text-main);
+    padding: 0 25px;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: small;
+    letter-spacing: 1px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.btn-filter-toggle:hover, .btn-filter-toggle.active {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+    color: #fff;
+}
+
+/* ======================== PANEL FILTRÓW (3 KOLUMNY) ======================== */
+
+.filter-panel {
+    display: none;
+    width: 100%;
+    max-width: 900px;
+    margin: 20px auto;
+    background: rgba(30, 30, 30, 0.6); 
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+    animation: slideDown 0.3s ease-out;
+}
+
+.filter-panel.active {
+    display: block;
+}
+
+/* Układ 3 kolumn */
+.filter-grid-layout {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 równe kolumny */
+    gap: 20px;
+}
+
+/* Pojedyncza kolumna */
+.filter-column {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.filter-column label {
+    font-size: 0.85rem;
+    color: var(--color-primary); /* Niebieski nagłówek */
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-left: 5px;
+}
+
+/* Nowoczesny Select - Wymuszony Styl */
+.filter-select {
+    width: 100%;
+    /* Sztywne tło #111 zamiast rgba, żeby zakryć styl systemowy */
+    background-color: #111; 
+    border: 1px solid #444;
+    color: #fff;
+    padding: 12px 15px;
+    padding-right: 40px; /* Miejsce na strzałkę */
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: 0.3s;
+    outline: none;
+    
+    /* KLUCZOWE: Wyłączamy styl systemowy dla wszystkich przeglądarek */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+
+    /* Własna strzałka */
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    background-size: 16px;
+}
+
+.filter-select:hover, .filter-select:focus {
+    border-color: var(--color-primary);
+    background-color: #000;
+}
+
+/* Opcje w środku (na wypadek gdyby system próbował robić je białe) */
+.filter-select option {
+    background-color: #111;
+    color: #fff;
+    padding: 10px;
+}
+
+.filter-actions {
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    justify-content: center;
+}
+
+.btn-reset-filters {
+    background: transparent;
+    border: 1px solid #555;
+    color: var(--text-muted);
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-reset-filters:hover {
+    border-color: var(--color-danger); /* Czerwona ramka */
+    color: var(--color-danger);       /* Czerwony tekst */
+    background: rgba(220, 53, 69, 0.1); /* Lekka czerwona poświata */
+    transform: translateY(-2px);
+}
+
+/* ================================================================================= */
+/* ========================== KOMUNIKATY W KOLEKCJI ================================ */
+/* ================================================================================= */
+
+.collection-error-msg {
+    text-align: center;
+    color: var(--color-danger); 
+    grid-column: 1 / -1 !important;
+    width: 100%;
+    padding: 20px;
+    font-weight: bold;
+}
+
+.grid-off-mode {
+    display: block !important; /* Wyłączamy grid, włączamy zwykły blok */
+    padding: 0 20px;
+}
+
+/* A to jest nasz komunikat (już bez grid-column, bo grid wyłączony) */
+.no-results-box {
+    width: 100%;
+    max-width: 600px; /* Żeby nie był za szeroki na wielkich ekranach */
+    margin: 40px auto; /* AUTO tutaj zrobi magię i wyśrodkuje */
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    
+    padding: 40px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px dashed #666;
+    border-radius: 12px;
+}
+
+.no-results-box h3 {
+    font-size: 1.5rem;
+    color: #ccc;
+    margin-bottom: 10px;
+}
+
+.no-results-box p {
+    color: #888;
+    margin-bottom: 20px;
+}
+
+.render-error{
+    text-align:center; 
+    width:100%; 
+    color:#888;
+}
+
+/* ==========================================================================
+   7. DETALE (AUTO-DETALE.HTML)
+   ========================================================================== */
+.details-page-wrapper {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+/* --- GÓRNA SEKCJA (2 Kolumny) --- */
+.details-top-section {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr; /* Lewa szersza (zdjęcia), Prawa węższa (info) */
+    gap: 40px;
+    margin-bottom: 40px;
+}
+
+/* LEWA: Galeria */
+.main-photo-container {
+    width: 100%;
+    height: 450px; /* Stała wysokość dla estetyki */
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid #333;
+    background: #000;
+    position: relative; /* Dla ikonki lupy */
+    cursor: pointer; /* Sugeruje, że można kliknąć */
+}
+
+.main-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Zdjęcie wypełnia ramkę bez rozciągania */
+    transition: transform 0.5s ease;
+}
+
+.zoom-indicator {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    background: rgba(0,0,0,0.6);
+    color: #fff;
+    padding: 8px;
+    border-radius: 50%;
+    display: flex;
+    pointer-events: none; /* Żeby nie przeszkadzało w klikaniu */
+}
+
+.thumbnails-row {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    overflow-x: auto; /* Przewijanie jeśli dużo zdjęć */
+    padding-bottom: 5px;
+}
+
+.thumb-img {
+    width: 80px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 6px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    opacity: 0.6;
+    transition: 0.3s;
+}
+
+.thumb-img:hover, .thumb-img.active {
+    border-color: var(--color-primary);
+    opacity: 1;
+}
+
+/* PRAWA: Info Box */
+.details-info-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.details-header h1 {
+    font-size: 2rem;
+    margin: 0 0 10px 0;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.car-year {
+    font-size: 1.2rem;
+    color: var(--color-primary);
+    font-weight: bold;
+    margin: 0 0 30px 0;
+}
+
+.specs-list {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 25px;
+    border-radius: 10px;
+    border: 1px dashed #444;
+    margin-bottom: 30px;
+}
+
+.spec-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #333;
+}
+
+.spec-row:last-child {
+    border-bottom: none;
+}
+
+.spec-label { 
+    color: #888; 
+}
+
+.spec-value { 
+    color: #fff; 
+    font-weight: bold; 
+}
+
+.admin-buttons-area {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.details-content-section {
+    background: rgba(255, 255, 255, 0.02);
+    padding: 40px;
+    border-radius: 12px;
+    margin-top: 40px;
+}
+
+.details-content-section h2 {
+    color: var(--color-secondary);
+    border-left: 4px solid var(--color-secondary);
+    padding-left: 15px;
+    margin-bottom: 20px;
+}
+
+.car-description-text {
+    line-height: 1.8;
+    color: #ddd;
+    font-size: 1.05rem;
+    white-space: pre-wrap; /* Zachowuje akapity z bazy danych */
+    margin-bottom: 40px;
+}
+
+.btn-back-large {
+    background: transparent;
+    border: 1px solid #444;
+    color: #888;
+    padding: 10px 25px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: 0.3s;
+    border-radius: 5px;
+}
+
+.btn-back-large:hover {
+    border-color: #fff;
+    color: #fff;
+}
+
+.login-info-title {
+    color: var(--color-primary);
+}
+
+/* ======================== SEKCJA PODOBNE AUTA ======================== */
+.similar-cars-section {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.similar-cars-section .section-title {
+    text-align: left;
+    margin-bottom: 30px;
+    color: var(--color-primary);
+    text-transform: uppercase;
+    font-weight: 800;
+}
+
+/* Wykorzystujemy Twój istniejący styl siatki */
+#podobne-auta-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 15px; /* Nieco mniejszy odstęp dla 5 aut */
+    width: 100%;
+}
+
+/* ================================================================================= */
+/* ========================= STRZAŁKI DO PRZEGLĄDANIA ZDJĘĆ ======================== */
+/* ================================================================================= */
+.nav-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    font-size: 24px;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: 0.3s;
+    border-radius: 4px;
+    z-index: 2;
+}
+
+.nav-arrow:hover {
+    background: rgba(59, 130, 246, 0.8);
+}
+
+.prev { 
+    left: 10px; 
+}
+.next { 
+    right: 10px; 
+}
+
+.lightbox-overlay {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.95);
+    align-items: center;
+    justify-content: center;
+}
+
+.lightbox-content {
+    max-width: 90%;
+    max-height: 90vh;
+    border-radius: 4px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+}
+
+.close-lightbox {
+    position: absolute;
+    top: 20px;
+    right: 40px;
+    color: #fff;
+    font-size: 50px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    z-index: 10001;
+}
+
+.close-lightbox:hover { color: var(--color-danger); }
+
+.lightbox-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 60px;
+    cursor: pointer;
+    padding: 0 20px;
+    transition: 0.3s;
+    z-index: 10000;
+}
+
+.lightbox-nav:hover { color: #fff; scale: 1.1; }
+.lightbox-nav.left { left: 20px; }
+.lightbox-nav.right { right: 20px; }
+
+.lightbox-counter {
+    position: absolute;
+    bottom: 20px;
+    color: #888;
+    font-size: 1rem;
+}
+
+
+
+/* ================================================================================= */
+/* ============================== PRZYCISK ULUBIONE ================================ */
+/* ================================================================================= */
+.btn-like {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid #444;
+    color: #888; /* Domyślny kolor (szary) */
+    cursor: pointer;
+    padding: 10px 20px;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1rem;
+    font-weight: 1000;
+    transition: 0.3s all;
+    margin-bottom: 20px;
+}
+
+/* Styl dla samego słowa "Polubień" */
+.like-label {
+    font-size: 1rem;
+    opacity: 0.7;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.btn-like svg {
+    width: 24px;
+    height: 24px;
+    fill: transparent;
+    stroke: currentColor;
+    stroke-width: 2px;
+    transition: 0.3s all;
+}
+
+.btn-like:hover {
+    border-color: #fff;
+    color: #fff;
+    transform: scale(1.05);
+}
+
+/* Stan: POLUBIONE */
+.btn-like.liked {
+    border-color: #e91e63;
+    color: #e91e63; /* Różowy/Czerwony */
+    background: rgba(233, 30, 99, 0.1);
+}
+
+.btn-like.liked svg {
+    fill: #e91e63; /* Wypełnij serce */
+    stroke: #e91e63;
+    animation: heartPulse 0.4s ease-out;
+}
+
+/* Animacja pulsowania */
+@keyframes heartPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.4); }
+    100% { transform: scale(1); }
+}
+
+/* ================================================================================= */
+/* ===================================== KOMENTARZE ================================ */
+/* ================================================================================= */
+.comments-section {
+    max-width: 1200px; /* Węższe niż cała strona, łatwiej się czyta */
+    margin: 20px 0 0 0;
+    padding-top: 40px;
+}
+
+.section-title {
+    color: #fff;
+    font-size: 1.5rem;
+    margin-bottom: 25px;
+    letter-spacing: 1px;
+}
+
+/* Formularz */
+.comment-form-box {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 40px;
+    border: 1px solid #333;
+}
+
+.comment-form-box textarea {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid #444;
+    color: #fff;
+    padding: 15px;
+    border-radius: 6px;
+    resize: none;
+    font-family: inherit;
+    outline: none;
+    transition: 0.3s;
+}
+
+.comment-form-box textarea:focus {
+    border-color: var(--color-primary);
+}
+
+.comment-empty{
+    color: #666; 
+    font-style: italic;
+}
+
+.form-footer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+}
+
+/* Komunikat "Zaloguj się" */
+.login-msg {
+    background: rgba(59, 130, 246, 0.1);
+    border-left: 4px solid var(--color-primary);
+    padding: 15px;
+    margin-bottom: 30px;
+    color: #ccc;
+    display: none;
+}
+
+.login-msg a {
+    color: var(--color-primary);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* Lista komentarzy */
+.comments-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.comment-item {
+    display: flex;
+    gap: 15px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    animation: fadeIn 0.5s ease;
+}
+
+.comment-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #333;
+}
+
+.comment-content {
+    flex: 1;
+}
+
+.comment-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+    align-items: center;
+}
+
+.comment-author {
+    color: #fff;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.comment-author-link {
+    color: #fff;
+    font-weight: bold;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.comment-contents{
+    display: flex; 
+    align-items: center; 
+    gap: 10px;
+}
+
+.comment-date {
+    color: #666;
+    font-size: 0.8rem;
+}
+
+.comment-text {
+    color: #ccc;
+    line-height: 1.5;
+    font-size: 0.95rem;
+}
+
+/* --- MODAL POTWIERDZENIA (CLEAN) --- */
+.confirmation-modal-content {
+    max-width: 400px; 
+    text-align: center;
+}
+
+.confirmation-title {
+    margin-bottom: 20px; 
+    color: var(--color-danger);
+}
+
+.confirmation-text {
+    margin-bottom: 30px; 
+    color: #ccc;
+    line-height: 1.5;
+}
+
+.confirmation-actions {
+    display: flex; 
+    gap: 15px; 
+    justify-content: center;
+}
+
+.btn-delete-comment {
+    background: none;
+    border: none;
+    color: #666;
+    cursor: pointer;
+    font-size: 1.2rem;
+    padding: 0 5px;
+    transition: 0.3s;
+}
+
+.btn-delete-comment:hover {
+    color: var(--color-danger);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================================================
+   8. DODAWANIE I EDYCJA (FORMULARZE)
+   ========================================================================== */
+.add-page-container, .edit-page-container, .correction-container {
+    padding: 40px 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.split-form {
+    display: flex;
+    gap: 40px;
+}
+
+.split-form textarea {
+    resize: none;
+}
+
+.form-left-panel {
+    flex: 1;
+    border-right: 1px solid #333;
+    padding-right: 40px;
+}
+
+.form-right-panel {
+    flex: 1.5;
+}
+
+.add-car-container{
+    padding-top: 0px;
+}
+
+.add-title, .edit-title {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 2rem;
+    color: var(--color-primary);
+}
+
+.add-car-image-info {
+    color: var(--text-main);
+    text-transform: uppercase;
+}
+
+.panel-title {
+    color: var(--color-secondary);
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+}
+
+.form-row {
+    display: flex;
+    gap: 20px;
+}
+.half-width { flex: 1; }
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+/* Upload zdjęć */
+.image-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 10px;
+    margin-bottom: 20px;
+    background: #0b0b0b;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px dashed #444;
+    min-height: 100px;
+}
+
+.image-preview-wrapper {
+    position: relative;
+    cursor: pointer;
+    aspect-ratio: 16/9;
+}
+.image-preview-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 4px;
+    border: 2px solid transparent;
+}
+.image-preview-wrapper.is-main img {
+    border-color: var(--color-success);
+}
+
+.btn-upload {
+    background: #444;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    color: white;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-top: 10px;
+}
+.btn-upload:hover { background: #555; }
+
+.btn-delete-photo {
+    position: absolute;
+    top: 2px; right: 2px;
+    width: 20px; height: 20px;
+    padding: 0;
+    font-size: 12px;
+}
+
+.form-left-panel .hint {
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-top: 20px;
+}
+
+/* ==========================================================================
+   9. PROFIL UŻYTKOWNIKA (PROFIL.HTML)
+   ========================================================================== */
+.profile-section {
+    padding: 40px 0;
+    display: flex;
+    justify-content: center;
+}
+
+.profile-card {
+    display: flex;
+    width: 100%;
+    max-width: 1200px;
+    background-color: var(--bg-glass);
+    border: 1px solid #333;
+    border-radius: 12px;
+    overflow: hidden;
+    min-height: 500px;
+}
+
+.profile-sidebar {
+    width: 40%;
+    background: rgba(0,0,0,0.3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 50px;
+    border-right: 1px solid #333;
+    text-align: center;
+}
+
+.avatar-wrapper {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+.avatar-circle {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 3px solid var(--color-primary);
+    overflow: hidden;
+    background: #000;
+}
+.avatar-circle img, .avatar-circle svg { width: 100%; height: 100%; object-fit: cover; }
+.avatar-overlay {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; 
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: 0.3s;
+}
+.avatar-wrapper:hover .avatar-overlay { opacity: 1; }
+
+.profile-content {
+    width: 65%;
+    padding: 40px;
+}
+.profile-content h2, h4 {
+    color: var(--color-primary);
+    text-transform: uppercase;
+    text-align: center;
+}
+.profile-form-row { 
+    display: flex; 
+    gap: 20px; 
+}
+
+.profile-form-group { 
+    flex: 1; 
+    margin-bottom: 15px; 
+}
+
+/* Cropper Modal */
+.crop-image-container {
+    max-height: 400px;
+    background: black;
+    overflow: hidden;
+    margin: 20px 0;
+}
+#image-to-crop { max-width: 100%; }
+
+/* ==========================================================================
+   10. PROFIL PUBLICZNY
+   ========================================================================== */
+
+/* ======================== PROFIL PUBLICZNY ======================== */
+
+.profile-header-container {
+    background: rgba(255, 255, 255, 0.02);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+    padding-bottom: 40px 20px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+/* Kontener na zdjęcie */
+.avatar-large-container {
+    width: 160px;
+    height: 160px;
+    margin: 0 auto 25px;
+    border-radius: 50%;
+    overflow: hidden;
+    /* Świecąca ramka pasująca do motywu */
+    border: 4px solid var(--color-primary);
+    box-shadow: 0 0 35px rgba(59, 130, 246, 0.5); 
+    background: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-avatar-large {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Styl dla domyślnej ikonki (gdy brak zdjęcia) */
+.profile-avatar-placeholder svg {
+    width: 80px;
+    height: 80px;
+    stroke: #ccc;
+}
+
+.profile-name-display {
+    font-size: 3rem;
+    font-weight: 900;
+    margin: 10px 0;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    text-shadow: 0 5px 15px rgba(0,0,0,0.5);
+}
+
+.profile-role-badge {
+    display: inline-block;
+    padding: 6px 18px;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+    background: rgba(0,0,0,0.5);
+    border: 1px solid #555;
+    color: #ccc;
+}
+
+/* Specjalny styl dla Admina */
+.profile-role-badge[data-role="admin"] {
+    border-color: var(--color-danger);
+    color: var(--color-danger);
+    background: rgba(220, 53, 69, 0.1);
+    box-shadow: 0 0 15px rgba(220, 53, 69, 0.2);
+}
+
+.profile-join-date {
+    color: var(--text-muted);
+    font-size: 1rem;
+    opacity: 0.8;
+}
+
+/* ==========================================================================
+   11. WERYFIKACJA (PANEL ADMINA)
+   ========================================================================== */
+
+.admin-stats-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    max-width: 900px;
+    margin: 0 auto 40px auto;
+}
+
+.stat-card {
+    background: var(--bg-glass);
+    border: 1px solid var(--border-color);
+    padding: 20px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    transition: transform 0.3s;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--color-primary);
+}
+
+.stat-icon {
+    font-size: 2.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+}
+
+.stat-info {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.stat-value {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--color-primary);
+}
+
+.stat-label {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    letter-spacing: 1px;
+}
+
+/* Wyróżnienie dla oczekujących */
+.stat-card.urgent {
+    border-color: rgba(241, 196, 15, 0.3);
+}
+
+.stat-card.urgent .stat-value {
+    color: #f1c40f;
+}
+
+.modal-content h2{
+    margin-bottom: 20px; 
+    color: var(--color-primary);
+}
+.verify-page { 
+    padding: 40px 20px; 
+    text-align: center;
+}
+
+.stats-header h1, .verify-section h1 {
+    color: var(--color-primary);
+    font-size: 2.5rem;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.verify-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.verify-card {
+    display: flex;
+    background: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 8px;
+    overflow: hidden;
+    text-align: left;
+}
+.verify-img { 
+    width: 250px; 
+    flex-shrink: 0; 
+}
+.verify-img img { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+}
+
+.verify-info { 
+    padding: 20px; 
+    flex: 1; 
+}
+
+.verify-info p {
+    color: var(--color-primary); 
+    font-weight: bold; 
+    margin-bottom: 10px;
+}
+
+.verify-desc { 
+    font-style: italic; 
+    color: #888; 
+    margin: 10px 0; 
+}
+
+.verify-actions { 
+    display: flex; 
+    gap: 10px; 
+    margin-top: 15px; 
+}
+
+.verify-input-group { 
+    margin-bottom: 15px; 
+    text-align: left;
+}
+
+.verify-form-row {
+    display: flex; 
+    gap: 15px; 
+}
+
+.verify-empty-msg {
+    color: var(--color-success);
+}
+
+.verify-warning-msg {
+    color: var(--color-danger);
+}
+
+.modal-actions {
+    margin-top: 25px; 
+    display: flex; 
+    gap: 15px;
+}
+
+/* ==========================================================================
+   12. O NAS (O-NAS.HTML)
+   ========================================================================== */
+.about-main { 
+    max-width: 1200px; 
+    margin: 0px auto; 
+    padding: 20px; 
+}
+
+.about-title {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--color-secondary);
+    text-shadow: 0 0 15px rgba(84, 110, 223, 0.6);
+    margin-bottom: 20px;
+}
+.about-content {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    align-items: center;
+}
+.about-description h2 { 
+    color: var(--color-primary); 
+    text-align: center;
+    margin-bottom: 0px; 
+}
+
+.about-description p { 
+    line-height: 1.7; 
+    color: #ccc; 
+    text-align: center;
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin-bottom: 30px; 
+}
+
+.about-logo { 
+    width: 100%; 
+    max-width: 350px; 
+    opacity: 0.7; 
+    margin-top: 20px;
+}
+
+/* ==========================================================================
+   13. LOGOWANIE (LOGOWANIE.HTML)
+   ========================================================================== */
+.login-page-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 70vh;
+}
+.form-nav {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 30px;
+    font-size: 1.1rem;
+}
+.form-nav a { 
+    color: var(--color-primary); 
+    text-decoration: none; 
+}
+
+.form-nav a:hover { 
+    transform: translateY(-2px); 
+    text-decoration: none; 
+}
+
+.active-tab { 
+    font-weight: bold; 
+    border-bottom: 2px solid var(--color-primary); 
+}
+
+.nav-divider { 
+    color: #555; 
+}
+
+#register-form{
+    display: none;
+}
+
+.login-form-log, .register-form-log {
+    max-width: 75%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin: 0px auto;
+}
+
+.register-form-log form, .login-form-log form {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* To wyśrodkuje przycisk */
+    width: 100%;
+}
+
+/* Wymuszamy, żeby inputy i selecty były nadal na całą szerokość */
+.register-form-log input, .register-form-log select, .login-form-log input {
+    width: 100% !important;
+}
+
+
+/* ================================================================================= */
+/* ========================== AWATAR W NAWIGACJI (CLEAN) =========================== */
+/* ================================================================================= */
+
+.user-profile-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    position: relative;
+    padding: 5px;
+    border-radius: 30px;
+    transition: background 0.3s;
+}
+
+.user-profile-container:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* To jest to kółko 40x40px */
+.user-avatar-nav {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;       /* Obcina zdjęcie do koła */
+    border: 2px solid #3b82f6; /* Twój niebieski kolor */
+    background-color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;         /* Zapobiega ściskaniu kółka */
+}
+
+/* To jest zdjęcie wewnątrz kółka */
+.user-avatar-nav img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;      /* Wypełnia kółko bez deformacji */
+    object-position: center; /* Centruje środek zdjęcia */
+    display: block;
+}
+
+.user-avatar-nav svg {
+    width: 20px;
+    height: 20px;
+    stroke: #ccc;
+}
+
+/* ==========================================================================
+   14. PODSTRONA MOJE AUTA (CENTRUM ZARZĄDZANIA)
+   ========================================================================== */
+
+.my-cars-page {
+    max-width: 1200px;
+    margin: 0px auto;
+    padding: 0 20px;
+}
+
+.page-title {
+    text-align: center;
+    font-size: 2.7rem;
+    text-transform: uppercase;
+    font-weight: 800;
+    color: var(--color-secondary);
+    text-shadow: 0 0 15px rgba(84, 110, 223, 0.6);
+    margin-bottom: 20px;
+}
+
+/* Duże Zakładki */
+.big-tabs-container {
+    display: flex;
+    justify-content: center;
+    gap: 0; /* Połączone ze sobą */
+    margin-bottom: 40px;
+    border-bottom: 2px solid #333;
+}
+
+.big-tab {
+    background: transparent;
+    border: none;
+    color: #666;
+    font-size: 1.2rem;
+    font-weight: bold;
+    padding: 15px 40px;
+    cursor: pointer;
+    transition: 0.3s;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px; /* Żeby nałożyć się na linię kontenera */
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.big-tab:hover {
+    color: #ccc;
+}
+
+.big-tab.active {
+    color: var(--color-primary);
+    border-bottom-color: var(--color-primary);
+}
+
+.tab-count {
+    background: #333;
+    color: #fff;
+    font-size: 0.8rem;
+    padding: 2px 8px;
+    border-radius: 12px;
+}
+
+.big-tab.active .tab-count {
+    background: var(--color-primary);
+    color: #000;
+}
+
+/* Widoki */
+.cars-view-content {
+    display: none; /* Domyślnie ukryte */
+    animation: fadeIn 0.4s ease;
+}
+
+.cars-view-content.active {
+    display: block;
+}
+
+.my-cars-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.info-banner {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 15px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #aaa;
+    border: 1px dashed #444;
+}
+
+/* Karta w panelu (trochę inna niż w kolekcji) */
+.manage-card {
+    background: #111;
+    border: 1px solid #333;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    transition: 0.3s;
+}
+
+.manage-card:hover {
+    transform: translateY(-5px);
+    border-color: #555;
+}
+
+.manage-card-img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+.manage-card-body {
+    padding: 15px;
+}
+
+.manage-card-title {
+    font-size: 1.2rem;
+    margin: 0 0 5px 0;
+    color: #fff;
+}
+
+.manage-card-title a {
+    color: inherit; 
+    text-decoration: none;
+}
+
+.manage-card-meta {
+    font-size: 0.9rem;
+    color: #888;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.status-label {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+/* Kolory statusów zdefiniowane wcześniej w profilu, ale dla pewności: */
+.status-pending { color: #f1c40f; background: rgba(241, 196, 15, 0.1); }
+.status-rejected { color: #e74c3c; background: rgba(231, 76, 60, 0.1); }
+.status-approved { color: #2ecc71; background: rgba(46, 204, 113, 0.1); }
+
+/* --- PRZYCISKI W ZARZĄDZANIU AUTAMI --- */
+.manage-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    border-top: 1px solid #333;
+    padding-top: 15px;
+}
+
+.btn-action-edit, .btn-action-delete {
+    flex: 1;
+    padding: 8px 0;
+    text-align: center;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    text-decoration: none;
+    border: none;
+    text-transform: uppercase;
+}
+
+/* Edytuj - Niebieski/Szary */
+.btn-action-edit {
+    background: #333;
+    color: #fff;
+}
+.btn-action-edit:hover {
+    background: var(--color-primary);
+    color: #000;
+}
+
+/* Usuń - Czerwony (outline) */
+.btn-action-delete {
+    background: transparent;
+    border: 1px solid var(--color-danger);
+    color: var(--color-danger);
+}
+.btn-action-delete:hover {
+    background: var(--color-danger);
+    color: #fff;
+}
+
+.my-car-error{
+    color:red; 
+    text-align:center;
+}
+
+.my-car-empty{
+    color:#666; 
+    grid-column: 1/-1; 
+    text-align:center; 
+    padding: 40px;
+}
+
+/* ==========================================================================
+   15. POPRAWKA-AUTA.HTML
+   ========================================================================== */
+
+   .correction-car-container h1 {
+    text-align: center;
+    text-transform: uppercase;
+    color: var(--color-primary);
+   }
+
+   /* ==========================================================================
+   16. ULUBIONE.HTML
+   ========================================================================== */
+   
+
+/* ======================== LAZY LOADING (LOADER) ======================== */
+.loader-container {
+    width: 100%;
+    text-align: center;
+    padding: 30px 0;
+    display: none;
+    grid-column: 1 / -1;
+    clear: both;
+}
+
+.loader-container.show {
+    display: block;
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(255, 255, 255, 0.1);
+    border-left-color: var(--color-primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.end-message {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    padding: 30px;
+    grid-column: 1 / -1;
+    width: 100%;
+    opacity: 0.7;
+}
+
+/* ==========================================================================
+   18. STOPKA (FOOTER)
+   ========================================================================== */
+.main-footer {
+    padding: 60px 0 20px;
+    color: #666;
+    text-align: center;
+    font-size: 0.9rem;
+    margin-top: auto;
+}
+.footer-line {
+    width: 90%;
+    margin: 0 auto 20px;
+}
+
+/* ==========================================================================
+   14. RESPONSYWNOŚĆ (MEDIA QUERIES)
+   ========================================================================== */
+
+   /* INDEX.HTML */
+
+#hamburger-icon {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    flex-direction: column;
+    gap: 6px;
+    padding: 10px;
+    z-index: 1100;
+}
+
+#hamburger-icon span {
+    display: block;
+    width: 30px;
+    height: 3px;
+    background-color: var(--text-main);
+    border-radius: 3px;
+    transition: all 0.3s ease;
+}
+
+/* ==========================================================================
+   PRZEDZIAŁ 3: LAPTOPY I DUŻE TABLETY (769px - 1279px)
+   ========================================================================== */
+@media (max-width: 1279px) {
+
+    #main-nav {
+        padding: 10px 20px;
+        justify-content: space-between;
+    }
+
+    #hamburger-icon {
+        display: flex;
+    }
+
+    .nav-links, .nav-actions {
+        display: none;
+    }
+
+    #main-nav.nav-active {
+        position: fixed;
+        width: 100%;
+        height: 30vh;
+        background-color: var(--bg-dark);
+        z-index: 1000;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 20px;
+    }
+
+    #main-nav.nav-active #hamburger-icon {
+        position: fixed;
+        top: 15px;
+        right: 15px;
+    }
+
+    #main-nav.nav-active .nav-logo {
+        order: 1;
+        margin-bottom: 20px;
+    }
+
+    #main-nav.nav-active .nav-actions {
+        display: flex;
+        order: 2;
+        width: 100%;
+        flex-direction: row;
+        gap: 50px;
+        justify-content: center;
+        align-items: center;
+        padding: 10px 0;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    #main-nav.nav-active .nav-links {
+        display: flex;
+        gap: 15px;
+        order: 3;
+        flex-direction: column;
+        width: 100%;
+        text-align: center;
+    }
+    
+    /* Skalowanie kontenera Hero */
+    .hero-content {
+        padding: 120px 20px 40px;
+    }
+
+    /* Dopasowanie siatki aut w Hero (nadal 3 kolumny, ale mniejsze odstępy) */
+    #lista-pojazdow-hero {
+        gap: 15px;
+    }
+
+    /* Modal powitalny - lekko węższy */
+    .custom-modal-window {
+        width: 60%;
+    }
+
+    .collection-grid {
+    grid-template-columns: repeat(4, 1fr);
+    padding-left: 20px;
+    padding-right: 20px;
+    }
+
+    
+}
+
+/* ==========================================================================
+   PRZEDZIAŁ 2: TABLETY I DUŻE TELEFONY (481px - 768px)
+   ========================================================================== */
+@media (max-width: 768px) {
+
+    /* --- 1. NAWIGACJA (WŁĄCZAMY BURGERA) --- */
+    #main-nav {
+        padding: 10px 20px;
+        justify-content: space-between;
+    }
+
+    #hamburger-icon {
+        display: flex;
+    }
+
+    .nav-links, .nav-actions {
+        display: none;
+    }
+
+    #main-nav.nav-active {
+        position: fixed;
+        width: 100%;
+        height: 45vh;
+        background-color: var(--bg-dark);
+        z-index: 1000;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 20px;
+    }
+
+    #main-nav.nav-active #hamburger-icon {
+        position: fixed;
+        top: 15px;
+        right: 15px;
+    }
+
+    #main-nav.nav-active .nav-logo {
+        order: 1;
+        margin-bottom: 20px;
+    }
+
+    #main-nav.nav-active .nav-actions {
+        display: flex;
+        order: 2;
+        width: 100%;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        padding: 10px 0;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    #main-nav.nav-active .nav-links {
+        display: flex;
+        order: 3;
+        flex-direction: column;
+        width: 100%;
+        text-align: center;
+        gap: 15px;
+        padding-top: 20px;
+    }
+
+    .content-wrapper {
+        flex-direction: column;
+        gap: 40px;
+    }
+
+    .hero-text {
+        width: 100%;
+        text-align: center;
+        padding: 0;
+    }
+
+    #lista-pojazdow-hero {
+        width: 100%;
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .features-wrapper {
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .feature-text, 
+    .feature-image {
+        width: 100%;
+        text-align: center;
+    }
+    
+    .feature-image img {
+        max-width: 80%; /* Żeby zdjęcie nie było gigantyczne */
+        margin: 0 auto;
+    }
+
+    /* --- 4. FOOTER --- */
+    .footer-content {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+    }
+}
+
+
+
+
+
+/* ==========================================================================
+   PRZEDZIAŁ 1: MAŁE TELEFONY (0px - 480px)
+   ========================================================================== */
+@media (max-width: 480px) {
+    
+    /* Jeszcze mniejszy padding */
+    .hero-content {
+        padding: 100px 15px 30px;
+    }
+
+    /* Mniejszy tytuł H1 */
+    .hero-text h1 {
+        font-size: 2rem;
+    }
+
+    #main-nav.nav-active .nav-actions {
+        flex-wrap: wrap; 
+        gap: 10px;
+    }
+
+    .custom-modal-window {
+        width: 90%;
+        padding: 20px;
+    }
+
+    .feature-image img {
+        max-width: 100%;
+    }
+
+    .container-title-glow {
+        font-size: 30px;
+    }
+    .collection-grid {
+        display: flex;
+        flex-direction: column;
+        margin-left: 20px;
+        margin-right: 20px;
+        max-width: 390px;
+    }
+
+    .admin-stats-container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .split-form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .form-left-panel {
+        border: none;
+    }
+    .profile-header-container {
+        padding-top: 20px;
+    }
+
+    .page-title {
+        font-size: 40px;
+    }
+}

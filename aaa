@@ -1,0 +1,248 @@
+--
+-- PostgreSQL database dump
+--
+
+\restrict RcrcyXrVjf2Fs5Fg1cDfmwW27idkP9hTu2ePSB5zedl2QID49EazuBiUxWe6KKN
+
+-- Dumped from database version 16.11
+-- Dumped by pg_dump version 16.11
+
+-- Started on 2026-01-13 09:45:49
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- TOC entry 216 (class 1259 OID 16410)
+-- Name: pojazdy; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.pojazdy (
+    id integer NOT NULL,
+    marka character varying(50) NOT NULL,
+    model character varying(50) NOT NULL,
+    rok_produkcji integer,
+    opis text,
+    silnik character varying(50),
+    moc integer,
+    zdjecie_url character varying(255)
+);
+
+
+ALTER TABLE public.pojazdy OWNER TO postgres;
+
+--
+-- TOC entry 215 (class 1259 OID 16409)
+-- Name: pojazdy_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.pojazdy_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.pojazdy_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 4805 (class 0 OID 0)
+-- Dependencies: 215
+-- Name: pojazdy_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.pojazdy_id_seq OWNED BY public.pojazdy.id;
+
+
+--
+-- TOC entry 218 (class 1259 OID 16419)
+-- Name: uzytkownicy; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.uzytkownicy (
+    id integer NOT NULL,
+    login character varying(50) NOT NULL,
+    email character varying(100) NOT NULL,
+    haslo text NOT NULL,
+    data_rejestracji timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+    plec character varying(20),
+    nazwa_uzytkownika character varying(50),
+    avatar_url character varying(255) DEFAULT NULL::character varying
+);
+
+
+ALTER TABLE public.uzytkownicy OWNER TO postgres;
+
+--
+-- TOC entry 217 (class 1259 OID 16418)
+-- Name: uzytkownicy_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.uzytkownicy_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.uzytkownicy_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 4806 (class 0 OID 0)
+-- Dependencies: 217
+-- Name: uzytkownicy_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.uzytkownicy_id_seq OWNED BY public.uzytkownicy.id;
+
+
+--
+-- TOC entry 4639 (class 2604 OID 16413)
+-- Name: pojazdy id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.pojazdy ALTER COLUMN id SET DEFAULT nextval('public.pojazdy_id_seq'::regclass);
+
+
+--
+-- TOC entry 4640 (class 2604 OID 16422)
+-- Name: uzytkownicy id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.uzytkownicy ALTER COLUMN id SET DEFAULT nextval('public.uzytkownicy_id_seq'::regclass);
+
+
+--
+-- TOC entry 4797 (class 0 OID 16410)
+-- Dependencies: 216
+-- Data for Name: pojazdy; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.pojazdy (id, marka, model, rok_produkcji, opis, silnik, moc, zdjecie_url) FROM stdin;
+1	Toyota	Corolla	2022	Niezawodny samochód kompaktowy	1.8L	140	toyota_corolla_main.png
+2	Tesla	Model 3	2023	Nowoczesny samochód elektryczny	Elektryczny	283	tesla_model_3_main.png
+4	Porsche	911 Turbo S	2023	Legenda sportowych samochodów, niesamowite osiągi.	3.7L TT	650	porsche_911_turbo_s_main.png
+5	Ferrari	F8 Tributo	2022	Włoski styl połączony z potężnym silnikiem V8.	3.9L V8 TT	720	ferrari_f8_tributo_main.png
+6	Lamborghini	Huracan	2021	Agresywny design i dźwięk silnika, którego nie da się zapomnieć.	5.2 V10	610	lamborghini_huracan_main.png
+7	Porsche	911 GT3 RS	2023	Król torów wyścigowych z potężnym dociskiem aero.	4.0 Flat-6	525	porsche_911_gt3_rs_main.png
+8	Tesla	Model S Plaid	2024	Elektryczny potwór przyspieszający do 100km/h w 2,1 sekundy.	3 Silniki Elektryczne	1020	tesla_model_s_plaid_main.png
+9	Ferrari	SF90 Stradale	2023	Hybrydowe superauto o łącznej mocy 1000 KM.	4.0 V8 Hybrid	1000	ferrari_sf90_stradale_main.png
+10	BMW	M4 Competition	2024	Agresywny design i perfekcyjnie prowadzenie z napędem M xDrive.	3.0L R6 TT	510	bmw_m4_competition_main.png
+11	Audi	RS6 Avant	2024	Najszybsze kombi na świecie, idealny balans mocy i luksusu.	4.0L V8 TT	630	audi_rs6_avant_main.png
+12	Lamborghini	Revuelto	2024	Następca Aventadora, pierwsza hybryda V12 od Lamborghini.	6.5L V12 Hybrid	1015	lamborghini_revuelto_main.png
+13	Mercedes-Benz	AMG GT	2020	Ekstremalna wersja AMG z ogromnym skrzydłem i mocą 730 KM.	4.0L V8 TT	530	mercedes_benz_amg_gt_main.png
+14	Toyota	GR Yaris	2023	Homologacja rajdowa w cywilnym wydaniu z napędem 4x4.	1.6L Turbo	261	toyota_gr_yaris_main.png
+15	Mercedes-Benz	300 SL Gullwing	1954	Kultowe "skrzydła mewy" i pierwszy wtrysk paliwa.	3.0L R6	215	mercedes_benz_300_sl_gullwing_main.png
+16	Shelby	Cobra	1965	Amerykańskie V8 w lekkim brytyjskim nadwoziu. Brutalna moc.	7.0L V8	425	shelby_cobra_main.png
+17	Ferrari	250 GTO	1962	Najdroższy i najbardziej porządany klasyk kolekcjonerski.	3.0L V12	300	ferrari_250_gto_main.png
+18	Jaguar	E-type	1961	Według Enzo Ferrariego: "Najpiękniejszy samochód świata.	3.8L R6	265	jaguar_etype_main.png
+19	Ford	Mustang Boss 429	1969	Kwintesencja ery muscle cars z potężnym silnikiem NASCAR.	7.0L V8	375	ford_mustang_boss_429_main.png
+20	Lamborghini	Miura P400	1966	Pierwszy na świecie super-samochód z silnikiem centralnym.	3.9L V12	350	lamborghini_miura_p400_main.png
+21	Porsche	930 Turbo	1975	Pierwsza "911-tka" z turbo, znana jako widow-maker.	3.0L Turbo	260	porsche_930_turbo_main.png
+22	Lancia	Delta HF Integrale	1992	Królowa rajdów WRC w wersji drogowej.	2.0L Turbo	215	lancia_delta_hf_integrale_main.png
+23	BMW	M1	1978	Jedyny supersamochód BMW z silnikiem umieszczonym centralnie.	3.5L R6	277	bmw_m1_main.png
+24	Chevrolet	Corvette C2	1963	Legendarne "Sting Ray" z dzieloną tylną szybą.	5.4L V8	360	chevrolet_corvette_c2_main.png
+3	BMW	M3	2021	Sportowy samochód o wysokich osiągach	3.0L R6 TT	480	bmw_m3_main.png
+\.
+
+
+--
+-- TOC entry 4799 (class 0 OID 16419)
+-- Dependencies: 218
+-- Data for Name: uzytkownicy; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.uzytkownicy (id, login, email, haslo, data_rejestracji, plec, nazwa_uzytkownika, avatar_url) FROM stdin;
+2	marek	marek@wp.pl	$2b$10$m60/reltt27zZpuuyA/UIOwELXVPZ6sxAlODgKpXUoDn5XJOspzIq	2026-01-11 13:21:36.401638	mezczyzna	marek	\N
+3	julka	julka@wp.pl	$2b$10$ldBd4hEbf5fGfJryR5ZBb..SsAnSgdXV0bvzD/27.qDyy6RGExaEW	2026-01-11 15:35:17.775249	kobieta	julka	\N
+1	patryk	patryk.patryk@onet.pl	$2b$10$6hWXRYc95Qp7/tUrmi2XpeoZBMFmbEKHMuuK3GIzMbFHCbV2OuLuW	2026-01-10 19:21:55.50982	mezczyzna	mruwa	/img/avatars/1768240959886.jpg
+\.
+
+
+--
+-- TOC entry 4807 (class 0 OID 0)
+-- Dependencies: 215
+-- Name: pojazdy_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.pojazdy_id_seq', 24, true);
+
+
+--
+-- TOC entry 4808 (class 0 OID 0)
+-- Dependencies: 217
+-- Name: uzytkownicy_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.uzytkownicy_id_seq', 3, true);
+
+
+--
+-- TOC entry 4644 (class 2606 OID 16417)
+-- Name: pojazdy pojazdy_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.pojazdy
+    ADD CONSTRAINT pojazdy_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4646 (class 2606 OID 16434)
+-- Name: uzytkownicy unique_nazwa; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.uzytkownicy
+    ADD CONSTRAINT unique_nazwa UNIQUE (nazwa_uzytkownika);
+
+
+--
+-- TOC entry 4648 (class 2606 OID 16431)
+-- Name: uzytkownicy uzytkownicy_email_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.uzytkownicy
+    ADD CONSTRAINT uzytkownicy_email_key UNIQUE (email);
+
+
+--
+-- TOC entry 4650 (class 2606 OID 16429)
+-- Name: uzytkownicy uzytkownicy_login_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.uzytkownicy
+    ADD CONSTRAINT uzytkownicy_login_key UNIQUE (login);
+
+
+--
+-- TOC entry 4652 (class 2606 OID 16427)
+-- Name: uzytkownicy uzytkownicy_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.uzytkownicy
+    ADD CONSTRAINT uzytkownicy_pkey PRIMARY KEY (id);
+
+
+-- Completed on 2026-01-13 09:45:49
+
+--
+-- PostgreSQL database dump complete
+--
+
+\unrestrict RcrcyXrVjf2Fs5Fg1cDfmwW27idkP9hTu2ePSB5zedl2QID49EazuBiUxWe6KKN
+

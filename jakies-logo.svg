@@ -1,0 +1,13 @@
+<svg width="200" height="50" viewBox="0 0 200 50" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="MotoPedia Logo">
+  <title>MotoPedia Logo - Typographic Gear</title>
+  <g fill="#333333" font-family="Arial, Helvetica, sans-serif">
+    <text x="10" y="35" font-size="32" font-weight="bold">M</text>
+
+    <g transform="translate(48, 24)">
+      <circle cx="0" cy="0" r="14" fill="none" stroke="#333333" stroke-width="4" stroke-dasharray="4,3" />
+      <circle cx="0" cy="0" r="5" fill="#333333" />
+    </g>
+
+    <text x="70" y="35" font-size="32" font-weight="bold">toPedia</text>
+  </g>
+</svg>
