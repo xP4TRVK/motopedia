@@ -152,7 +152,7 @@ app.put('/api/uzytkownik/:login', uploadAvatar.single('avatar'), async (req, res
     try {
         const { login } = req.params;
         const { nazwa_uzytkownika, email, plec, stareHaslo, noweHaslo } = req.body;
-        const nowyPlik = req.file ? `/img/avatars/${req.file.filename}` : null;
+        const nowyPlik = req.file ? req.file.path : null;
 
         const userCheck = await pool.query('SELECT haslo, avatar_url FROM uzytkownicy WHERE login = $1', [login]);
         if (userCheck.rows.length === 0) return res.status(404).json({ message: "Brak usera" });
@@ -465,9 +465,10 @@ app.put('/api/pojazdy/edytuj/:id', uploadCar.array('newPhotos'), async (req, res
 
         if (newFiles && newFiles.length > 0) {
             for (let i = 0; i < newFiles.length; i++) {
-                await pool.query("INSERT INTO zdjecia (pojazd_id, url) VALUES ($1, $2)", [id, newFiles[i].filename]);
+                await pool.query("INSERT INTO zdjecia (pojazd_id, url) VALUES ($1, $2)", [id, newFiles[i].path]);
+                
                 if (mainPhotoType === 'new' && parseInt(mainPhotoValue) === i) {
-                    newMainName = newFiles[i].filename;
+                    newMainName = newFiles[i].path;
                 }
             }
         }
@@ -504,8 +505,11 @@ app.put('/api/pojazdy/aktualizuj/:id', uploadCar.array('newPhotos'), async (req,
         let newMainName = null;
         if (newFiles && newFiles.length > 0) {
             for (let i = 0; i < newFiles.length; i++) {
-                await pool.query("INSERT INTO zdjecia (pojazd_id, url) VALUES ($1, $2)", [id, newFiles[i].filename]);
-                if (mainPhotoType === 'new' && parseInt(mainPhotoValue) === i) newMainName = newFiles[i].filename;
+                await pool.query("INSERT INTO zdjecia (pojazd_id, url) VALUES ($1, $2)", [id, newFiles[i].path]);
+                
+                if (mainPhotoType === 'new' && parseInt(mainPhotoValue) === i) {
+                    newMainName = newFiles[i].path;
+                }
             }
         }
 
