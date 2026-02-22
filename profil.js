@@ -60,9 +60,15 @@ async function zaladujDaneProfilu() {
 
         if (linkDoZdjecia && linkDoZdjecia !== "null" && linkDoZdjecia.trim() !== "") {
             // Dodajemy slash na początku jeśli go nie ma
-            let sciezka = linkDoZdjecia.startsWith('/') ? linkDoZdjecia : '/' + linkDoZdjecia;
-            // Dodajemy losowy parametr czasu, żeby wymusić odświeżenie (cache busting)
-            sciezka += `?v=${new Date().getTime()}`;
+            let sciezka = linkDoZdjecia;
+
+            // Jeśli to NIE jest link z internetu (brak http) i NIE ma slasha, dodaj go
+            if (!sciezka.startsWith('http') && !sciezka.startsWith('/')) {
+                sciezka = '/' + sciezka;
+            }
+
+            // Zachowujemy Twój parametr odświeżania zdjęcia
+            sciezka += (sciezka.includes('?') ? '&' : '?') + `v=${new Date().getTime()}`;
 
             circle.innerHTML = `<img src="${sciezka}" alt="Avatar">`;
         } else {
@@ -184,7 +190,7 @@ function inicjalizujFormularz() {
         const plec = document.getElementById('profile-edit-plec').value;
         const stareHaslo = document.getElementById('old-password').value;
         const noweHaslo = document.getElementById('new-password').value;
-        const btnSave = document.querySelector('.btn-save');
+        const btnSave = e.target.querySelector('button[type="submit"]');
 
         // Walidacja
         if (!stareHaslo) {

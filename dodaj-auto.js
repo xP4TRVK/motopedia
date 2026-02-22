@@ -111,7 +111,7 @@ async function wyslijFormularz(e) {
         return;
     }
 
-    const submitBtn = document.querySelector('.btn-save');
+    const submitBtn = e.target.querySelector('button[type="submit"]');
     const originalText = submitBtn.innerText;
     
     // Blokada przycisku

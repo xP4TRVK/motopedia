@@ -197,7 +197,9 @@ window.potwierdzUsunieciePojazduAdmin = async () => {
     if (!id) return;
 
     try {
-        const response = await fetch(`/api/pojazdy/${id}`, { method: 'DELETE' });
+        const response = await fetch(`/api/pojazdy/${id}?login=${login}`, { 
+            method: 'DELETE' 
+        });
         
         if (response.ok) {
             window.location.href = 'kolekcja.html'; // Wyrzuca do kolekcji po usunięciu
