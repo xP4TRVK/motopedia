@@ -223,6 +223,22 @@ function inicjalizujFormularz() {
             const result = await response.json();
 
             if (response.ok) {
+
+                if (result.nowyAvatar) {
+                    const circle = document.querySelector('.avatar-circle');
+                    if (circle) {
+                        let sciezka = result.nowyAvatar;
+                        // Logika hybrydowa:
+                        if (!sciezka.startsWith('http') && !sciezka.startsWith('/')) {
+                            sciezka = '/' + sciezka;
+                        }
+                        // Dodajemy parametr czasu, aby przeglądarka pobrała nowy plik, a nie z cache
+                        sciezka += (sciezka.includes('?') ? '&' : '?') + `v=${new Date().getTime()}`;
+                        
+                        circle.innerHTML = `<img src="${sciezka}" alt="Avatar">`;
+                    }
+                }
+
                 pokazPowiadomienie("Zapisano zmiany!");
                 
                 // Czyszczenie pól haseł

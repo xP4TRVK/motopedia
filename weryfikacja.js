@@ -54,7 +54,9 @@ function renderujListe(container, auta) {
         card.className = 'verify-card';
 
         // Ścieżka zdjęcia (zabezpieczenie braku fotki)
-        const zdjecie = auto.zdjecie_url ? `img/auta/${auto.zdjecie_url}` : 'img/default-car.png';
+        const zdjecie = auto.zdjecie_url 
+        ? (auto.zdjecie_url.startsWith('http') ? auto.zdjecie_url : `/img/auta/${auto.zdjecie_url}`) 
+        : 'img/default-car.png';
 
         card.innerHTML = `
             <div class="verify-img">

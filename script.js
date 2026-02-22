@@ -73,9 +73,9 @@ function aktualizujNawigacje() {
     const navActions = document.querySelector('.nav-actions');
     const notifTrigger = document.getElementById('notif-trigger'); // Nasz dzwonek w HTML
 
-    const loginBtn = document.querySelector('.btn-primary');
+    const loginBtn = navActions ? navActions.querySelector('.nav-actions .btn-primary') : null;
     const existingProfile = document.querySelector('.user-profile-container');
-    const targetElement = loginBtn || existingProfile;
+    const targetElement = existingProfile || loginBtn;
 
     if (login && navLinks && navActions) {
         // 1. Zarządzanie dzwonkiem (SVG musi być w HTML każdego pliku)
