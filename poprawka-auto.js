@@ -103,9 +103,10 @@ function renderExistingGallery(photos) {
             wrapper.classList.add('is-main');
         }
 
+        const src = photo.url.startsWith('http') ? photo.url : `img/auta/${photo.url}`;
         wrapper.innerHTML = `
-            <img src="img/auta/${photo.url}" alt="Foto">
-            <button type="button" class="btn-delete-photo">✕</button>
+        <img src="${src}" alt="Foto">
+        <button type="button" class="btn-delete-photo">✕</button>
         `;
 
         // Usuwanie (dodanie do listy usuniętych)
@@ -190,7 +191,7 @@ async function zapiszPoprawki(e) {
 
     const params = new URLSearchParams(window.location.search);
     const id = params.get('id'); // Pobieramy ID z URL, bo input może być zawodny
-    const btnSave = document.querySelector('.btn-save');
+    const btnSave = document.querySelector('.btn-primary');
     const login = localStorage.getItem('zalogowanyUzytkownik'); // KTO wysyła
     
     btnSave.disabled = true;

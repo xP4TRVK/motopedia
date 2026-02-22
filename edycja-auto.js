@@ -100,9 +100,10 @@ function renderExistingGallery(photos) {
             wrapper.classList.add('is-main');
         }
 
+        const src = photo.url.startsWith('http') ? photo.url : `img/auta/${photo.url}`;
         wrapper.innerHTML = `
-            <img src="img/auta/${photo.url}" alt="Foto">
-            <button type="button" class="btn-delete-photo" onclick="pytanieOUsuniecieZdjecia(${photo.id}, this)">✕</button>
+        <img src="${src}" alt="Foto">
+        <button type="button" class="btn-delete-photo" onclick="pytanieOUsuniecieZdjecia(${photo.id}, this)">✕</button>
         `;
 
         // Kliknięcie w zdjęcie (Ustawianie głównego)

@@ -396,7 +396,7 @@ app.post('/api/pojazdy/dodaj', uploadCar.array('zdjecia', 10), async (req, res) 
 
     } catch (err) { 
         // TUTAJ JEST KLUCZ DO ZAGADKI - Zobacz co wypisze w konsoli!
-        console.error("❌❌❌ BŁĄD KRYTYCZNY W BAZIE:", err.message); 
+        console.error("BŁĄD KRYTYCZNY W BAZIE:", err.message); 
         console.error("Szczegóły:", err);
         res.status(500).json({ message: "Błąd bazy danych: " + err.message }); 
     }
@@ -428,7 +428,7 @@ app.put('/api/pojazdy/edytuj/:id', uploadCar.array('newPhotos'), async (req, res
 
         // Jeśli to nie właściciel I nie admin -> blokujemy
         if (owner !== login && userRole !== 'admin') {
-            console.warn(`⛔ Próba nieautoryzowanej edycji! Właściciel: ${owner}, Intruz: ${login}`);
+            console.warn(`Próba nieautoryzowanej edycji! Właściciel: ${owner}, Intruz: ${login}`);
             return res.status(403).json({ message: "Brak uprawnień do edycji tego pojazdu." });
         }
 
@@ -528,7 +528,7 @@ app.delete('/api/pojazdy/:id', async (req, res) => {
     const { login } = req.query; // Kto chce usunąć?
 
     try {
-        console.log(`🗑️ Usuwanie pojazdu ID: ${id} przez użytkownika: ${login}`);
+        console.log(`Usuwanie pojazdu ID: ${id} przez użytkownika: ${login}`);
 
         // 1. Sprawdzamy, czy użytkownik w ogóle istnieje i jaką ma ROLĘ
         const userResult = await pool.query("SELECT rola FROM uzytkownicy WHERE login = $1", [login]);
@@ -555,7 +555,7 @@ app.delete('/api/pojazdy/:id', async (req, res) => {
         const isAdmin = (userRole === 'admin');
 
         if (!isOwner && !isAdmin) {
-            console.log(`⛔ Odmowa usunięcia. Login: ${login}, Rola: ${userRole}, Właściciel: ${auto.uzytkownik_dodajacy}`);
+            console.log(`Odmowa usunięcia. Login: ${login}, Rola: ${userRole}, Właściciel: ${auto.uzytkownik_dodajacy}`);
             return res.status(403).json({ message: "Nie masz uprawnień do usunięcia tego pojazdu!" });
         }
 
