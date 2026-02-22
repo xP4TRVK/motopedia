@@ -195,14 +195,22 @@ window.zamknijModalPojazduAdmin = () => {
 };
 
 // 3. Potwierdzenie (Fizyczne usunięcie)
+// 3. Potwierdzenie (Fizyczne usunięcie)
 window.potwierdzUsunieciePojazduAdmin = async () => {
     const params = new URLSearchParams(window.location.search);
     const id = params.get('id');
     
-    if (!id) return;
+    // --- TA LINIA JEST KLUCZOWA (POBIERAMY LOGIN Z SESJI) ---
+    const login = localStorage.getItem('zalogowanyUzytkownik');
+
+    if (!id || !login) {
+        alert("Błąd: Nie można zidentyfikować sesji.");
+        return;
+    }
 
     try {
-        const response = await fetch(`/api/pojazdy/${id}?login=${login}`, { 
+        // Dodajemy encodeURIComponent, aby bezpiecznie przesłać login w URL
+        const response = await fetch(`/api/pojazdy/${id}?login=${encodeURIComponent(login)}`, { 
             method: 'DELETE' 
         });
         
