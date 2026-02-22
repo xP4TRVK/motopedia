@@ -54,23 +54,37 @@ pool.query('SELECT NOW()', (err, res) => {
 /* ========================= 3. KONFIGURACJA UPLOADU (MULTER) ====================== */
 /* ================================================================================= */
 
-const storageAvatar = multer.diskStorage({
-    destination: function (req, file, cb) { cb(null, './public/img/avatars'); },
-    filename: function (req, file, cb) {
-        const uniqueSuffix = Date.now() + Math.round(Math.random() * 1E9);
-        cb(null, uniqueSuffix + path.extname(file.originalname));
-    }
-});
-const uploadAvatar = multer({ storage: storageAvatar, limits: { fileSize: 5 * 1024 * 1024 } });
+const cloudinary = require('cloudinary').v2;
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
 
-const storageCar = multer.diskStorage({
-    destination: (req, file, cb) => { cb(null, 'public/img/auta/'); },
-    filename: (req, file, cb) => {
-        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-        cb(null, 'auto-' + uniqueSuffix + '.jpg');
+// Konfiguracja Cloudinary (dane pobierane z Render.com)
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET
+});
+
+// Magazyn dla zdjęć aut w chmurze
+const storageCar = new CloudinaryStorage({
+    cloudinary: cloudinary,
+    params: {
+        folder: 'moto-pedia-auta',
+        allowed_formats: ['jpg', 'png', 'jpeg'],
+        transformation: [{ width: 1200, crop: "limit" }] // Automatyczne skalowanie
     }
 });
 const uploadCar = multer({ storage: storageCar });
+
+// Magazyn dla avatarów w chmurze
+const storageAvatar = new CloudinaryStorage({
+    cloudinary: cloudinary,
+    params: {
+        folder: 'moto-pedia-avatary',
+        allowed_formats: ['jpg', 'png', 'jpeg'],
+        transformation: [{ width: 200, height: 200, crop: "fill" }]
+    }
+});
+const uploadAvatar = multer({ storage: storageAvatar });
 
 /* ================================================================================= */
 /* ============================ 4. TRASY FRONTENDOWE =============================== */
@@ -353,7 +367,7 @@ app.post('/api/pojazdy/dodaj', uploadCar.array('zdjecia', 10), async (req, res) 
 
         // Wybór zdjęcia głównego
         const indeks = parseInt(mainPhotoIndex) || 0;
-        const nazwaPliku = files[indeks] ? files[indeks].filename : files[0].filename;
+        const nazwaPliku = files[indeks] ? files[indeks].path : files[0].path;
 
         // 2. Wstawiamy do bazy (TYLKO KOLUMNY, KTÓRE MASZ NA PEWNO)
         // Pomijamy cenę/przebieg/paliwo, bo mogłeś ich jeszcze nie dodać do bazy.
@@ -372,7 +386,7 @@ app.post('/api/pojazdy/dodaj', uploadCar.array('zdjecia', 10), async (req, res) 
 
         // 3. Dodajemy zdjęcia do galerii
         for (const f of files) {
-            await pool.query("INSERT INTO zdjecia (pojazd_id, url) VALUES ($1, $2)", [newId, f.filename]);
+            await pool.query("INSERT INTO zdjecia (pojazd_id, url) VALUES ($1, $2)", [newId, f.path]);
         }
         
         console.log("4. ✅ Sukces! Dodano auto ID:", newId);
