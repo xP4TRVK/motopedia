@@ -247,10 +247,12 @@ app.get('/api/pojazdy', async (req, res) => {
         }
 
         // 4. SORTOWANIE
-        switch (sort) {
-            case 'oldest':      query += " ORDER BY id ASC"; break;
-            case 'newest':      
-            default:            query += " ORDER BY id DESC"; break;
+        // Wymuszamy, aby 'newest' oraz brak wyboru (default) zawsze dawały najnowsze na górze
+        if (sort === 'oldest') {
+            query += " ORDER BY id ASC";
+        } else {
+            // Każdy inny przypadek (w tym 'newest' i brak parametru) daje najnowsze pierwsze
+            query += " ORDER BY id DESC";
         }
 
         // 5. PAGINACJA
