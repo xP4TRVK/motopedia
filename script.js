@@ -37,7 +37,9 @@ function renderujKafelki(target, dane) {
 
     target.innerHTML = dane.map(auto => {
         // Ustalanie ścieżki zdjęcia (zabezpieczenie przed brakiem zdjęcia)
-        const zdjecie = auto.zdjecie_url ? `img/auta/${auto.zdjecie_url}` : 'img/default-car.png';
+        const zdjecie = auto.zdjecie_url 
+        ? (auto.zdjecie_url.startsWith('http') ? auto.zdjecie_url : `/img/auta/${auto.zdjecie_url}`) 
+        : 'img/default-car.png';
 
         return `
         <a href="auto-detale.html?id=${auto.id}" class="card-link">

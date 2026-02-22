@@ -73,7 +73,9 @@ function renderujListe(listaAut, kontenerId, czyPokazacStatus) {
         if (auto.status === 'approved') link = `auto-detale.html?id=${auto.id}`;
         
         const cursorStyle = auto.status === 'approved' ? 'cursor: pointer;' : 'cursor: default;';
-        const zdjecie = auto.zdjecie_url ? `img/auta/${auto.zdjecie_url}` : 'img/default-car.png';
+        const zdjecie = auto.zdjecie_url 
+        ? (auto.zdjecie_url.startsWith('http') ? auto.zdjecie_url : `/img/auta/${auto.zdjecie_url}`) 
+        : 'img/default-car.png';
 
         // Badge statusu
         let statusBadge = '';
