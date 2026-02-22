@@ -91,6 +91,18 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Sprawdzanie, czy auto zostało właśnie usunięte
+    const urlParamsCheck = new URLSearchParams(window.location.search);
+    if (urlParamsCheck.get('deleted') === 'true') {
+        // Wywołujemy toast już na nowej stronie
+        if (typeof pokazPowiadomienie === 'function') {
+            pokazPowiadomienie("Pojazd został pomyślnie usunięty! 🗑️");
+        }
+        
+        // Opcjonalnie: czyścimy URL, żeby po odświeżeniu (F5) komunikat nie wyskoczył znowu
+        window.history.replaceState({}, document.title, window.location.pathname);
+    }
+
     // Startowe ładowanie danych
     zaladujPartiePojazdow();
 

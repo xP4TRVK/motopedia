@@ -215,9 +215,10 @@ window.potwierdzUsunieciePojazduAdmin = async () => {
         });
         
         if (response.ok) {
-            window.location.href = 'kolekcja.html'; // Wyrzuca do kolekcji po usunięciu
+            // Przekierowujemy natychmiast, dodając parametr ?deleted=true
+            window.location.href = 'kolekcja.html?deleted=true';
         } else {
-            alert("Nie udało się usunąć pojazdu.");
+            pokazPowiadomienie("Błąd: Nie udało się usunąć pojazdu.");
         }
     } catch (err) {
         console.error(err);
