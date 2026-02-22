@@ -33,9 +33,14 @@ async function zaladujDaneOsobowe(login) {
         // --- NAPRAWA AVATARA ---
         let avatarHtml;
         if (user.avatar && user.avatar !== 'null') {
-            // Jeśli ścieżka w bazie to np. "/img/avatars/plik.jpg", używamy jej bezpośrednio
-            // Jeśli to sama nazwa pliku, dodajemy folder.
-            let src = user.avatar.startsWith('/') ? user.avatar : '/img/avatars/' + user.avatar;
+            // Logika hybrydowa: zachowujemy linki z chmury (http) i poprawiamy lokalne
+            let src = user.avatar.startsWith('http') 
+                ? user.avatar 
+                : (user.avatar.startsWith('/') ? user.avatar : '/img/avatars/' + user.avatar);
+            
+            // Dodajemy parametr czasu, aby zmiana zdjęcia była widoczna natychmiast
+            src += (src.includes('?') ? '&' : '?') + `v=${new Date().getTime()}`;
+            
             avatarHtml = `<img src="${src}" alt="${user.login}" class="profile-avatar-large">`;
         } else {
             // Domyślna ikona SVG (jeśli brak zdjęcia)
