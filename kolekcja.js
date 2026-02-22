@@ -134,7 +134,7 @@ async function zaladujPartiePojazdow() {
 
     try {
         // Budujemy URL z parametrami: limit, offset ORAZ filtry
-        let url = `/api/pojazdy?limit=${LIMIT}&offset=${currentOffset}`;
+        let url = `/api/pojazdy?limit=${LIMIT}&offset=${currentOffset}&t=${Date.now()}`;
         url += `&sort=${filters.sort}`;
         url += `&power=${filters.power}`;
         url += `&year=${filters.year}`;
