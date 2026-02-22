@@ -249,10 +249,10 @@ app.get('/api/pojazdy', async (req, res) => {
         // 4. SORTOWANIE
         // Wymuszamy, aby 'newest' oraz brak wyboru (default) zawsze dawały najnowsze na górze
         if (sort === 'oldest') {
-            query += " ORDER BY id ASC";
+        query += " ORDER BY data_dodania ASC, id ASC";
         } else {
-            // Każdy inny przypadek (w tym 'newest' i brak parametru) daje najnowsze pierwsze
-            query += " ORDER BY id DESC";
+        // Najnowsze po dacie, a jeśli daty są identyczne - po wyższym ID
+        query += " ORDER BY data_dodania DESC, id DESC";
         }
 
         // 5. PAGINACJA
@@ -885,7 +885,7 @@ app.get('/api/moje-pojazdy/:login', async (req, res) => {
             (SELECT COUNT(*) FROM ulubione u WHERE u.pojazd_id = p.id) as like_count
             FROM pojazdy p 
             WHERE p.uzytkownik_dodajacy = $1
-            ORDER BY p.id DESC
+            ORDER BY p.data_dodania DESC, p.id DESC
         `, [login]);
 
         res.json(result.rows);
