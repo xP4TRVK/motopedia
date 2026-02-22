@@ -35,8 +35,11 @@ app.use(express.static(__dirname));
 console.log("4. 🔌 Próba połączenia z bazą danych...");
 
 const pool = new Pool({
-    connectionString: process.env.DATABASE_URL,
-    connectionTimeoutMillis: 5000 
+  connectionString: process.env.DATABASE_URL,
+  connectionTimeoutMillis: 5000,
+  ssl: {
+    rejectUnauthorized: false
+  }
 });
 
 pool.query('SELECT NOW()', (err, res) => {
