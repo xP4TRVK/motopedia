@@ -72,12 +72,16 @@ function renderujMiniaturki() {
     const thumbsContainer = document.getElementById('thumbnails-container');
     if (!thumbsContainer) return;
 
-    thumbsContainer.innerHTML = galleryData.map((img, index) => `
-        <img src="img/auta/${img.url}" 
+    thumbsContainer.innerHTML = galleryData.map((img, index) => {
+    // Sprawdzamy, czy pojedyncze zdjęcie w galerii jest z chmury czy lokalne
+    const src = img.url.startsWith('http') ? img.url : `img/auta/${img.url}`;
+    return `
+        <img src="${src}" 
              class="thumb-img" 
              onclick="ustawIndeks(${index})" 
              alt="Miniatura">
-    `).join('');
+    `;
+}).join('');
     
     aktualizujKlasyMiniaturek();
 }
@@ -102,7 +106,8 @@ window.ustawIndeks = (index) => {
 // Funkcja odświeżająca zdjęcie na stronie I w lightboxie
 function aktualizujWidok() {
     if (!galleryData[currentPhotoIndex]) return;
-    const url = `img/auta/${galleryData[currentPhotoIndex].url}`;
+    const foto = galleryData[currentPhotoIndex].url;
+    const url = foto.startsWith('http') ? foto : `img/auta/${foto}`;
 
     // 1. Aktualizuj zdjęcie na stronie
     const mainImg = document.getElementById('main-photo');
@@ -348,7 +353,9 @@ async function zaladujKomentarze() {
 
             let avatarSrc;
             if (k.avatar_url) {
-                avatarSrc = k.avatar_url.startsWith('/') ? k.avatar_url : '/' + k.avatar_url;
+            avatarSrc = k.avatar_url.startsWith('http') 
+            ? k.avatar_url 
+            : (k.avatar_url.startsWith('/') ? k.avatar_url : '/' + k.avatar_url);
             } else {
                 avatarSrc = `https://ui-avatars.com/api/?name=${authorDisplayName}&background=random`;
             }
